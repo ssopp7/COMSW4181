@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Tracking Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>🔍 Pixel Tracking Simulator</h1>
+            <p class="subtitle">Learn how tracking works and stop it in real-time!</p>
+        </header>
+
+        <!-- Game Instructions -->
+        <div class="instructions">
+            <h2>🎯 Mission: Stop the Tracking!</h2>
+            <p>This shopping website has hidden tracking pixels sending your data to 3 companies. You have <strong>45 seconds</strong> to stop them by:</p>
+            <div class="instruction-options">
+                <div class="option">
+                    <span class="option-number">1</span>
+                    <span>Delete tracking code from HTML</span>
+                </div>
+                <div class="option">
+                    <span class="option-number">OR</span>
+                </div>
+                <div class="option">
+                    <span class="option-number">2</span>
+                    <span>Block network requests in the terminal</span>
+                </div>
+            </div>
+            <button id="startBtn" class="btn-start">▶️ Start Simulation</button>
+            <button id="resetBtn" class="btn-reset">🔄 Reset</button>
+        </div>
+
+        <!-- Game Stats -->
+        <div class="game-stats">
+            <div class="stat">
+                <span class="stat-label">⏱️ Time:</span>
+                <span id="timer" class="stat-value">45s</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">🚫 Blocked:</span>
+                <span id="blocked" class="stat-value">0/3</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">📊 Data Leaked:</span>
+                <span id="dataLeaked" class="stat-value">0 KB</span>
+            </div>
+        </div>
+
+        <!-- Split Screen Layout -->
+        <div class="split-container">
+            <!-- LEFT: Shopping Website -->
+            <div class="left-panel">
+                <div class="panel-header">
+                    <h3>🛍️ ShopEasy.com - Your Shopping Site</h3>
+                    <span class="badge">User View</span>
+                </div>
+                <div class="shopping-website">
+                    <div class="site-header">
+                        <div class="logo">🛒 ShopEasy</div>
+                        <div class="user-info">Welcome, User #<span id="userId">12345</span></div>
+                    </div>
+                    
+                    <!-- Main Product Listing Page -->
+                    <div id="mainPage" class="page-view">
+                        <div class="product-grid">
+                            <div class="product-card" data-product="Smartphone Pro" data-price="$999.99" data-icon="📱">
+                                <div class="product-image">📱</div>
+                                <h4>Smartphone Pro</h4>
+                                <p class="price">$999.99</p>
+                                <button class="btn-product">View Details</button>
+                            </div>
+                            <div class="product-card" data-product="Laptop Ultra" data-price="$1,499.99" data-icon="💻">
+                                <div class="product-image">💻</div>
+                                <h4>Laptop Ultra</h4>
+                                <p class="price">$1,499.99</p>
+                                <button class="btn-product">View Details</button>
+                            </div>
+                            <div class="product-card" data-product="Smart Watch" data-price="$399.99" data-icon="⌚">
+                                <div class="product-image">⌚</div>
+                                <h4>Smart Watch</h4>
+                                <p class="price">$399.99</p>
+                                <button class="btn-product">View Details</button>
+                            </div>
+                            <div class="product-card" data-product="Wireless Headphones" data-price="$299.99" data-icon="🎧">
+                                <div class="product-image">🎧</div>
+                                <h4>Wireless Headphones</h4>
+                                <p class="price">$299.99</p>
+                                <button class="btn-product">View Details</button>
+                            </div>
+                        </div>
+                        <div class="tracking-notice">
+                            ⚠️ <strong>What you DON'T see:</strong> This page is secretly tracking you!
+                        </div>
+                    </div>
+                    
+                    <!-- Product Detail Page -->
+                    <div id="detailPage" class="page-view" style="display: none;">
+                        <button class="back-btn">← Back to Products</button>
+                        <div class="product-detail">
+                            <div class="detail-image" id="detailIcon">📱</div>
+                            <h2 id="detailName">Product Name</h2>
+                            <p class="detail-price" id="detailPrice">$0.00</p>
+                            <div class="detail-description">
+                                <h3>Product Description</h3>
+                                <p id="detailDescription">High-quality product with excellent features and performance.</p>
+                            </div>
+                            <div class="detail-specs">
+                                <h3>Specifications</h3>
+                                <ul id="detailSpecs">
+                                    <li>Premium quality materials</li>
+                                    <li>Latest technology</li>
+                                    <li>1-year warranty included</li>
+                                </ul>
+                            </div>
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                        <div class="tracking-notice">
+                            ⚠️ <strong>What you DON'T see:</strong> Your browsing behavior is being tracked!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Code, Terminal, and Data -->
+            <div class="right-panel">
+                <!-- HTML Code Section -->
+                <div class="code-section">
+                    <div class="section-header">
+                        <h3>� Website HTML Code</h3>
+                        <span class="badge danger">Tracking Active</span>
+                    </div>
+                    <div class="code-display">
+                        <pre><code>&lt;body&gt;
+  &lt;div class="products"&gt;...&lt;/div&gt;
+  
+  <span class="code-line tracking-line" id="tracker1Code" data-tracker="1">
+  &lt;!-- Analytics Tracker --&gt;
+  &lt;img src="analytics.com/track.gif?user=12345" 
+       width="1" height="1" /&gt;
+  <button class="delete-btn" title="Delete this line">❌</button></span>
+  
+  <span class="code-line tracking-line" id="tracker2Code" data-tracker="2">
+  &lt;!-- Ad Network Tracker --&gt;
+  &lt;script src="adnetwork.com/pixel.js"&gt;&lt;/script&gt;
+  <button class="delete-btn" title="Delete this line">❌</button></span>
+  
+  <span class="code-line tracking-line" id="tracker3Code" data-tracker="3">
+  &lt;!-- Data Broker Tracker --&gt;
+  &lt;img src="databroker.com/collect?id=12345" 
+       width="1" height="1" /&gt;
+  <button class="delete-btn" title="Delete this line">❌</button></span>
+
+&lt;/body&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- Terminal/Network Requests Section -->
+                <div class="terminal-section">
+                    <div class="section-header">
+                        <h3>🌐 Network Requests (Browser Console)</h3>
+                        <span class="badge warning">Monitoring</span>
+                    </div>
+                    <div class="terminal-display" id="terminal">
+                        <div class="terminal-line">$ Monitoring network traffic...</div>
+                        <div class="terminal-line">$ Waiting for activity...</div>
+                    </div>
+                </div>
+
+                <!-- User Data Section -->
+                <div class="data-section">
+                    <div class="section-header">
+                        <h3>📊 Data Being Collected</h3>
+                        <span class="badge danger">Private Info Exposed</span>
+                    </div>
+                    <div class="data-display" id="dataDisplay">
+                        <div class="data-item">
+                            <strong>IP Address:</strong> <span class="data-value">192.168.1.100</span>
+                        </div>
+                        <div class="data-item">
+                            <strong>Browser:</strong> <span class="data-value">Chrome 119.0</span>
+                        </div>
+                        <div class="data-item">
+                            <strong>OS:</strong> <span class="data-value">macOS 14.0</span>
+                        </div>
+                        <div class="data-item">
+                            <strong>Screen:</strong> <span class="data-value">1920x1080</span>
+                        </div>
+                        <div class="data-item">
+                            <strong>Location:</strong> <span class="data-value">New York, USA</span>
+                        </div>
+                        <div class="data-item">
+                            <strong>Pages Viewed:</strong> <span class="data-value">Product Page, Cart</span>
+                        </div>
+                        <div class="data-item">
+                            <strong>Time on Site:</strong> <span class="data-value" id="timeOnSite">0s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Result -->
+        <div id="gameResult" class="game-result hidden"></div>
+    </div>
+
+    <footer>
+        <p>🔒 Protect your privacy: Use ad blockers, disable third-party cookies, and be aware of tracking</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -211,6 +211,33 @@
         <p>🔒 Protect your privacy: Use ad blockers, disable third-party cookies, and be aware of tracking</p>
     </footer>
 
+    <!-- Tutorial Overlay -->
+    <div id="tutorialOverlay" class="tutorial-overlay hidden">
+        <div class="tutorial-spotlight"></div>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div id="tutorialModal" class="tutorial-modal hidden">
+        <div class="tutorial-content">
+            <div class="tutorial-header">
+                <div class="tutorial-progress">
+                    <span id="tutorialStep">Step 1</span>
+                    <span id="tutorialTotal">of 10</span>
+                </div>
+                <button id="skipTutorial" class="tutorial-skip" title="Skip tutorial">Skip ⏭️</button>
+            </div>
+            <div class="tutorial-body">
+                <div class="tutorial-icon" id="tutorialIcon">🎓</div>
+                <h3 id="tutorialTitle">Welcome to Pixel Tracking Simulator!</h3>
+                <p id="tutorialText">This tutorial will teach you how websites track you and how to protect yourself.</p>
+            </div>
+            <div class="tutorial-footer">
+                <button id="tutorialPrev" class="tutorial-btn tutorial-btn-secondary" style="display: none;">← Previous</button>
+                <button id="tutorialNext" class="tutorial-btn tutorial-btn-primary">Next →</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

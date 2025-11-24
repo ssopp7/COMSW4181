@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Tracking Game - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #landingPage {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+
+        .landing-content {
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .landing-content h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 900;
+            color: #4ade80; 
+        }
+
+        .landing-content p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: #d1d5db;
+        }
+        
+        .btn-link {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #3b82f6 0%, #6366f1 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div id="landingPage">
+        <div class="landing-content">
+            <h1>🔍 PIxel Tracking: Learn about who's tracking you!</h1>
+            <p>
+                Welcome to the interactive simulator where you become a privacy defender! 
+                Learn exactly how hidden tracking pixels collect your data and practice 
+                blocking them in real-time.
+            </p>
+            <div style="margin-top: 30px;">
+                <!-- Link to the start page to choose the next step -->
+                <a href="start.html" class="btn-link">
+                    Start Learning!
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

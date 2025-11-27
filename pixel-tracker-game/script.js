@@ -72,43 +72,40 @@ class TutorialSystem {
                 action: null,
                 nextButton: "How Do I Stop This?"
             },
-            {
-                title: "Method 1: Delete Tracking Code ❌",
-                text: "You can stop tracking by deleting the tracking code! Click the red ❌ button next to any tracking line to remove it. This simulates using browser extensions like uBlock Origin. Try it now!",
-                icon: "❌",
-                highlight: ".code-section",
-                position: "left",
-                action: "waitForCodeDelete",
-                nextButton: null
+            { 
+                id: 2, 
+                name: 'adnetwork.com', 
+                company: 'Ad Network', 
+                blocked: false, 
+                codeDeleted: false,
+                code: '<script src="https://adnetwork.com/pixel.js?id=12345&ref=shopeasy"></script>'
             },
-            {
-                title: "Method 2: Block Network Requests 🚫",
-                text: "Another way is to block network requests! Look for the [ BLOCK ] link next to any network request in the terminal and click it. This simulates blocking tracking domains. Try it!",
-                icon: "🚫",
-                highlight: ".terminal-section",
-                position: "left",
-                action: "waitForNetworkBlock",
-                nextButton: null,
-                isLastStep: true
+            { 
+                id: 3, 
+                name: 'databroker.com', 
+                company: 'Data Broker', 
+                blocked: false, 
+                codeDeleted: false,
+                code: '<img src="https://databroker.com/collect?id=12345&t=' + Date.now() + '" width="1" height="1" alt="" />'
             }
         ];
         
         this.initializeElements();
         this.attachEventListeners();
+        this.updateHTMLDisplay();
     }
     
     initializeElements() {
-        this.overlay = document.getElementById('tutorialOverlay');
-        this.modal = document.getElementById('tutorialModal');
-        this.spotlight = document.querySelector('.tutorial-spotlight');
-        this.stepElement = document.getElementById('tutorialStep');
-        this.totalElement = document.getElementById('tutorialTotal');
-        this.iconElement = document.getElementById('tutorialIcon');
-        this.titleElement = document.getElementById('tutorialTitle');
-        this.textElement = document.getElementById('tutorialText');
-        this.prevBtn = document.getElementById('tutorialPrev');
-        this.nextBtn = document.getElementById('tutorialNext');
-        this.skipBtn = document.getElementById('skipTutorial');
+        this.timerElement = document.getElementById('timer');
+        this.blockedElement = document.getElementById('blocked');
+        this.dataLeakedElement = document.getElementById('dataLeaked');
+        this.timeOnSiteElement = document.getElementById('timeOnSite');
+        this.startBtn = document.getElementById('startBtn');
+        this.resetBtn = document.getElementById('resetBtn');
+        this.gameResult = document.getElementById('gameResult');
+        this.terminal = document.getElementById('terminal');
+        this.htmlCode = document.getElementById('htmlCode');
+        this.codeDisplay = document.getElementById('codeDisplay');
     }
     
     attachEventListeners() {
@@ -237,10 +234,7 @@ class TutorialSystem {
         const absoluteTop = rect.top + window.pageYOffset;
         const middle = absoluteTop - (window.innerHeight / 2) + (rect.height / 2);
         
-        window.scrollTo({
-            top: middle,
-            behavior: 'smooth'
-        });
+        return html;
     }
     
     clearDimming() {
@@ -264,8 +258,8 @@ class TutorialSystem {
         const isLeftSide = elementCenterX < viewportWidth / 2;
         const isTopHalf = elementCenterY < viewportHeight / 2;
         
-        let position = preferredPosition;
-        let left, top;
+        // Add line breaks for readability
+        formatted = formatted.replace(/></g, '>\n<');
         
       
         if (preferredPosition === 'right' || preferredPosition === 'left') {
@@ -505,10 +499,10 @@ class TutorialSystem {
         }
     }
     
-    completeTutorial() {
-        this.tutorialActive = false;
-        this.tutorialCompleted = true;
-        localStorage.setItem('tutorialCompleted', 'true');
+    injectTrackingPixels(html) {
+        // Find a good place to inject the tracking pixels (before </body> or at the end)
+        // We'll inject them in different places to make them less obvious
+        const lines = html.split('\n');
         
         
         if (this.scrollHandler) {
@@ -541,12 +535,13 @@ class TutorialSystem {
                 this.game.startGame();
             }, 500);
         }
+        
+        return positions;
     }
     
-    reset() {
-        localStorage.removeItem('tutorialCompleted');
-        this.tutorialCompleted = false;
-        this.start();
+    getIndentLevel(line) {
+        const match = line.match(/^(\s*)/);
+        return match ? match[1] : '';
     }
 }
 
@@ -569,19 +564,16 @@ class TrackerSimulator {
             { id: 3, name: 'databroker.com', company: 'Data Broker', blocked: false, codeDeleted: false }
         ];
         
-        this.initializeElements();
-        this.attachEventListeners();
+        return escapedLines.join('\n');
     }
     
-    initializeElements() {
-        this.timerElement = document.getElementById('timer');
-        this.blockedElement = document.getElementById('blocked');
-        this.dataLeakedElement = document.getElementById('dataLeaked');
-        this.timeOnSiteElement = document.getElementById('timeOnSite');
-        this.startBtn = document.getElementById('startBtn');
-        this.resetBtn = document.getElementById('resetBtn');
-        this.gameResult = document.getElementById('gameResult');
-        this.terminal = document.getElementById('terminal');
+    findTrackerInLine(line) {
+        for (let i = 0; i < this.trackers.length; i++) {
+            if (line.includes(this.trackers[i].code)) {
+                return i;
+            }
+        }
+        return -1;
     }
     
     attachEventListeners() {
@@ -653,6 +645,9 @@ class TrackerSimulator {
         
         
         this.terminal.innerHTML = '<div class="terminal-line">$ Monitoring network traffic...</div>';
+        
+        // Update HTML display with trackers
+        this.updateHTMLDisplay();
         
         this.updateUI();
         this.startTimer();
@@ -845,7 +840,7 @@ class TrackerSimulator {
     deleteCode(trackerId, codeLine) {
         if (!this.gameActive && !(window.tutorial && window.tutorial.tutorialActive)) return; 
         
-        const tracker = this.trackers.find(t => t.id === trackerId);
+        const tracker = this.trackers.find(t => t.id === trackerId + 1); // trackerId is 0-indexed in array
         if (!tracker || tracker.codeDeleted) return;
         
         tracker.codeDeleted = true;
@@ -868,8 +863,6 @@ class TrackerSimulator {
             if (line.classList.contains('request')) {
                 line.classList.remove('request');
                 line.classList.add('blocked');
-                const blockLink = line.querySelector('.block-link');
-                if (blockLink) blockLink.remove();
             }
         });
 
@@ -1005,13 +998,15 @@ class TrackerSimulator {
             <div class="terminal-line">$ Waiting for activity...</div>
         `;
         
+        // Reset HTML display
+        this.updateHTMLDisplay();
+        
         this.updateUI();
     }
 }
 
 
 let game;
-let tutorial;
 document.addEventListener('DOMContentLoaded', () => {
     game = new TrackerSimulator();
     window.game = game; 

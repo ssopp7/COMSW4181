@@ -321,7 +321,7 @@ class TutorialSystem {
     }
     
     skipTutorial() {
-        if (confirm('Skip the tutorial? You can restart it later by right-clicking the Reset button.')) {
+        if (confirm('Skip the tutorial?\n\nYou can restart it anytime by clicking the "🎓 Redo Tutorial" button at the top of the page.')) {
             this.completeTutorial();
         }
     }
@@ -735,11 +735,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     setTimeout(() => tutorial.start(), 500);
     
-    document.getElementById('resetBtn').addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        if (confirm('Restart the tutorial?')) {
-            tutorial.reset();
-        }
+    // Redo Tutorial button
+    document.getElementById('redoTutorialBtn').addEventListener('click', () => {
+        tutorial.reset();
     });
     
     console.log('%c🔒 Pixel Detective Game', 'color: #000; font-size: 18px; font-weight: bold;');

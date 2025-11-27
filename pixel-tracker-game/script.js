@@ -1,592 +1,3 @@
-// Tutorial System
-class TutorialSystem {
-    constructor(game) {
-        this.game = game;
-        this.currentStep = 0;
-        this.tutorialActive = false;
-        this.tutorialCompleted = localStorage.getItem('tutorialCompleted') === 'true';
-        this.scrollHandler = null;
-        this.currentHighlightedElement = null;
-        
-        this.steps = [
-            {
-                title: "Welcome to Pixel Tracking Simulator! 🎓",
-                text: "This interactive tutorial will teach you how websites track you online and how to protect yourself. You'll learn step-by-step how tracking works, going through each section one by one.",
-                icon: "🎓",
-                highlight: null,
-                position: "center",
-                action: null,
-                nextButton: "Let's Start!"
-            },
-            {
-                title: "Game Instructions 🎯",
-                text: "First, let's understand your mission. You'll have 45 seconds to stop tracking by either deleting tracking code or blocking network requests. Let's explore how tracking works step by step.",
-                icon: "🎯",
-                highlight: ".instructions",
-                position: "bottom-forced",
-                action: null,
-                nextButton: "Next Section"
-            },
-            {
-                title: "The Shopping Website 🛍️",
-                text: "This is what you see as a regular user - a normal shopping website. You can click 'View Details' on any product to see more info, and use the back button to return. But behind the scenes, invisible tracking is happening with every interaction!",
-                icon: "🛍️",
-                highlight: ".left-panel",
-                position: "right",
-                action: null,
-                nextButton: "Next Section"
-            },
-            {
-                title: "The Hidden HTML Code 💻",
-                text: "Look at this HTML code section! These highlighted lines are TRACKING PIXELS - invisible 1x1 pixel images and scripts that collect your data. There are 3 different trackers here from different companies.",
-                icon: "💻",
-                highlight: ".code-section",
-                position: "left",
-                action: null,
-                nextButton: "Next Section"
-            },
-            {
-                title: "Understanding the Trackers 🔍",
-                text: "Each tracking line sends data to a different company: Analytics Tracker (measures your behavior), Ad Network (targets ads to you), and Data Broker (sells your info). They all run silently in the background.",
-                icon: "🔍",
-                highlight: ".tracking-line",
-                position: "left",
-                action: null,
-                nextButton: "Next Section"
-            },
-            {
-                title: "Network Requests 🌐",
-                text: "This terminal shows NETWORK REQUESTS - when the tracking pixels 'call home' to send your data. Every line shows a request being sent to a tracking company with your information.",
-                icon: "🌐",
-                highlight: ".terminal-section",
-                position: "left",
-                action: null,
-                nextButton: "Next Section"
-            },
-            {
-                title: "Your Private Data 📱",
-                text: "This shows exactly what data is being collected: your IP address, browser type, location, and browsing behavior. All of this is sent to third parties without your explicit consent!",
-                icon: "📱",
-                highlight: ".data-section",
-                position: "left",
-                action: null,
-                nextButton: "How Do I Stop This?"
-            },
-            {
-                title: "Method 1: Delete Tracking Code ❌",
-                text: "You can stop tracking by deleting the tracking code! Click the red ❌ button next to any tracking line to remove it. This simulates using browser extensions like uBlock Origin. Try it now!",
-                icon: "❌",
-                highlight: ".code-section",
-                position: "left",
-                action: "waitForCodeDelete",
-                nextButton: null
-            },
-            {
-                title: "Method 2: Block Network Requests 🚫",
-                text: "Another way is to block network requests! Look for the [ BLOCK ] link next to any network request in the terminal and click it. This simulates blocking tracking domains. Try it!",
-                icon: "🚫",
-                highlight: ".terminal-section",
-                position: "left",
-                action: "waitForNetworkBlock",
-                nextButton: null,
-                isLastStep: true
-            }
-        ];
-        
-        this.initializeElements();
-        this.attachEventListeners();
-    }
-    
-    initializeElements() {
-        this.overlay = document.getElementById('tutorialOverlay');
-        this.modal = document.getElementById('tutorialModal');
-        this.spotlight = document.querySelector('.tutorial-spotlight');
-        this.stepElement = document.getElementById('tutorialStep');
-        this.totalElement = document.getElementById('tutorialTotal');
-        this.iconElement = document.getElementById('tutorialIcon');
-        this.titleElement = document.getElementById('tutorialTitle');
-        this.textElement = document.getElementById('tutorialText');
-        this.prevBtn = document.getElementById('tutorialPrev');
-        this.nextBtn = document.getElementById('tutorialNext');
-        this.skipBtn = document.getElementById('skipTutorial');
-    }
-    
-    attachEventListeners() {
-        this.nextBtn.addEventListener('click', () => this.nextStep());
-        this.prevBtn.addEventListener('click', () => this.previousStep());
-        this.skipBtn.addEventListener('click', () => this.skipTutorial());
-    }
-    
-    start() {
-        if (this.tutorialCompleted) {
-            return; // Don't show tutorial if already completed
-        }
-        
-        this.tutorialActive = true;
-        this.currentStep = 0;
-        this.showStep(0);
-        this.overlay.classList.remove('hidden');
-        this.modal.classList.remove('hidden');
-        
-        // Disable game controls during tutorial
-        this.game.startBtn.disabled = true;
-    }
-    
-    showStep(stepIndex) {
-        const step = this.steps[stepIndex];
-        this.currentStep = stepIndex;
-        
-        // Update modal content
-        this.stepElement.textContent = `Step ${stepIndex + 1}`;
-        this.totalElement.textContent = `of ${this.steps.length}`;
-        this.iconElement.textContent = step.icon;
-        this.titleElement.textContent = step.title;
-        this.textElement.textContent = step.text;
-        
-        // Update buttons
-        this.prevBtn.style.display = stepIndex > 0 ? 'block' : 'none';
-        this.nextBtn.textContent = step.nextButton || 'Next →';
-        this.nextBtn.style.display = step.action ? 'none' : 'block';
-        
-        // Remove old scroll handler if exists
-        if (this.scrollHandler) {
-            window.removeEventListener('scroll', this.scrollHandler);
-            this.scrollHandler = null;
-        }
-        
-        // Position modal and spotlight
-        this.positionTutorial(step);
-        
-        // Add scroll handler to keep spotlight aligned
-        if (step.highlight) {
-            this.scrollHandler = () => this.updateSpotlightPosition();
-            window.addEventListener('scroll', this.scrollHandler);
-        }
-        
-        // Handle step actions
-        if (step.action) {
-            this.handleStepAction(step.action);
-        }
-    }
-    
-    positionTutorial(step) {
-        if (step.highlight) {
-            const element = document.querySelector(step.highlight);
-            if (element) {
-                // Store current highlighted element for scroll updates
-                this.currentHighlightedElement = element;
-                
-                const rect = element.getBoundingClientRect();
-                
-                // Position spotlight
-                this.spotlight.style.left = rect.left - 10 + 'px';
-                this.spotlight.style.top = rect.top - 10 + 'px';
-                this.spotlight.style.width = rect.width + 20 + 'px';
-                this.spotlight.style.height = rect.height + 20 + 'px';
-                
-                // Highlight element
-                element.classList.add('tutorial-highlight');
-                
-                // Dim other sections (keep dim effect throughout tutorial)
-                this.dimOtherSections(element);
-                
-                // Auto-scroll to center the section
-                this.scrollToCenter(element);
-                
-                // Position modal intelligently based on element location
-                this.positionModalSmart(step.position, rect, element);
-            }
-        } else {
-            // Center modal
-            this.currentHighlightedElement = null;
-            this.spotlight.style.width = '0';
-            this.spotlight.style.height = '0';
-            this.modal.style.left = '50%';
-            this.modal.style.top = '50%';
-            this.modal.style.transform = 'translate(-50%, -50%)';
-            // Keep dim effect even for centered modal
-        }
-    }
-    
-    updateSpotlightPosition() {
-        // Update spotlight position on scroll to keep it aligned with the element
-        if (this.currentHighlightedElement) {
-            const rect = this.currentHighlightedElement.getBoundingClientRect();
-            this.spotlight.style.left = rect.left - 10 + 'px';
-            this.spotlight.style.top = rect.top - 10 + 'px';
-            this.spotlight.style.width = rect.width + 20 + 'px';
-            this.spotlight.style.height = rect.height + 20 + 'px';
-        }
-    }
-    
-    dimOtherSections(highlightedElement) {
-        // Remove previous dimming but keep the dim overlay
-        this.clearDimming();
-        
-        // Find all major sections
-        const sections = [
-            document.querySelector('.instructions'),
-            document.querySelector('.game-stats'),
-            document.querySelector('.left-panel'),
-            document.querySelector('.code-section'),
-            document.querySelector('.terminal-section'),
-            document.querySelector('.data-section')
-        ].filter(Boolean);
-        
-        // Find which section contains or is the highlighted element
-        let activeSection = null;
-        for (const section of sections) {
-            if (section === highlightedElement || section.contains(highlightedElement)) {
-                activeSection = section;
-                break;
-            }
-        }
-        
-        // Add bright border highlight to the active section
-        if (activeSection) {
-            activeSection.classList.add('learning-highlight');
-        }
-    }
-    
-    scrollToCenter(element) {
-        // Scroll the element to the center of the viewport with smooth behavior
-        const rect = element.getBoundingClientRect();
-        const absoluteTop = rect.top + window.pageYOffset;
-        const middle = absoluteTop - (window.innerHeight / 2) + (rect.height / 2);
-        
-        window.scrollTo({
-            top: middle,
-            behavior: 'smooth'
-        });
-    }
-    
-    clearDimming() {
-        document.querySelectorAll('.learning-highlight').forEach(el => {
-            el.classList.remove('learning-highlight');
-        });
-    }
-    
-    positionModalSmart(preferredPosition, elementRect, element) {
-        const modal = this.modal;
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        const modalWidth = 600; // max-width from CSS
-        const modalHeight = modal.offsetHeight || 400; // approximate height
-        const padding = 30; // spacing from element
-        const margin = 20; // margin from viewport edge
-        
-        // Determine which side of the screen the element is on
-        const elementCenterX = elementRect.left + elementRect.width / 2;
-        const elementCenterY = elementRect.top + elementRect.height / 2;
-        const isLeftSide = elementCenterX < viewportWidth / 2;
-        const isTopHalf = elementCenterY < viewportHeight / 2;
-        
-        let position = preferredPosition;
-        let left, top;
-        
-        // Smart positioning: if element is on left, place modal on right and vice versa
-        if (preferredPosition === 'right' || preferredPosition === 'left') {
-            if (isLeftSide) {
-                // Element on left, try to place modal on right
-                left = elementRect.right + padding;
-                // Check if modal fits on the right
-                if (left + modalWidth + margin > viewportWidth) {
-                    // Doesn't fit on right, try above or below
-                    position = isTopHalf ? 'bottom' : 'top';
-                } else {
-                    position = 'right';
-                }
-            } else {
-                // Element on right, try to place modal on left
-                left = elementRect.left - modalWidth - padding;
-                // Check if modal fits on the left
-                if (left < margin) {
-                    // Doesn't fit on left, try above or below
-                    position = isTopHalf ? 'bottom' : 'top';
-                } else {
-                    position = 'left';
-                }
-            }
-        }
-        
-        // Calculate final position based on determined placement
-        switch(position) {
-            case 'right':
-                left = elementRect.right + padding;
-                top = elementRect.top;
-                // Adjust if modal goes off bottom
-                if (top + modalHeight > viewportHeight - margin) {
-                    top = Math.max(margin, viewportHeight - modalHeight - margin);
-                }
-                // Adjust if modal goes off top
-                if (top < margin) {
-                    top = margin;
-                }
-                modal.style.left = left + 'px';
-                modal.style.top = top + 'px';
-                modal.style.transform = 'none';
-                break;
-                
-            case 'left':
-                left = elementRect.left - modalWidth - padding;
-                top = elementRect.top;
-                // Adjust if modal goes off bottom
-                if (top + modalHeight > viewportHeight - margin) {
-                    top = Math.max(margin, viewportHeight - modalHeight - margin);
-                }
-                // Adjust if modal goes off top
-                if (top < margin) {
-                    top = margin;
-                }
-                modal.style.left = Math.max(margin, left) + 'px';
-                modal.style.top = top + 'px';
-                modal.style.transform = 'none';
-                break;
-                
-            case 'bottom':
-                top = elementRect.bottom + padding;
-                // Center horizontally relative to element
-                left = elementRect.left + (elementRect.width / 2) - (modalWidth / 2);
-                // Adjust if modal goes off right edge
-                if (left + modalWidth > viewportWidth - margin) {
-                    left = viewportWidth - modalWidth - margin;
-                }
-                // Adjust if modal goes off left edge
-                if (left < margin) {
-                    left = margin;
-                }
-                // Adjust if modal goes off bottom
-                if (top + modalHeight > viewportHeight - margin) {
-                    // Place above instead
-                    top = elementRect.top - modalHeight - padding;
-                }
-                modal.style.left = left + 'px';
-                modal.style.top = Math.max(margin, top) + 'px';
-                modal.style.transform = 'none';
-                break;
-                
-            case 'bottom-forced':
-                // Force position below the element, no fallback to top
-                top = elementRect.bottom + padding;
-                // Center horizontally relative to element
-                left = elementRect.left + (elementRect.width / 2) - (modalWidth / 2);
-                // Adjust if modal goes off right edge
-                if (left + modalWidth > viewportWidth - margin) {
-                    left = viewportWidth - modalWidth - margin;
-                }
-                // Adjust if modal goes off left edge
-                if (left < margin) {
-                    left = margin;
-                }
-                modal.style.left = left + 'px';
-                modal.style.top = top + 'px';
-                modal.style.transform = 'none';
-                break;
-                
-            case 'top':
-                top = elementRect.top - modalHeight - padding;
-                // Center horizontally relative to element
-                left = elementRect.left + (elementRect.width / 2) - (modalWidth / 2);
-                // Adjust if modal goes off right edge
-                if (left + modalWidth > viewportWidth - margin) {
-                    left = viewportWidth - modalWidth - margin;
-                }
-                // Adjust if modal goes off left edge
-                if (left < margin) {
-                    left = margin;
-                }
-                // Adjust if modal goes off top
-                if (top < margin) {
-                    // Place below instead
-                    top = elementRect.bottom + padding;
-                }
-                modal.style.left = left + 'px';
-                modal.style.top = Math.max(margin, top) + 'px';
-                modal.style.transform = 'none';
-                break;
-                
-            default:
-                modal.style.left = '50%';
-                modal.style.top = '50%';
-                modal.style.transform = 'translate(-50%, -50%)';
-        }
-    }
-    
-    handleStepAction(action) {
-        switch(action) {
-            case 'waitForProductClick':
-                this.waitForProductClick();
-                break;
-            case 'waitForCodeDelete':
-                this.waitForCodeDelete();
-                break;
-            case 'waitForNetworkBlock':
-                this.waitForNetworkBlock();
-                break;
-        }
-    }
-    
-    waitForProductClick() {
-        const productButtons = document.querySelectorAll('.btn-product');
-        const clickHandler = () => {
-            productButtons.forEach(btn => btn.removeEventListener('click', clickHandler));
-            setTimeout(() => this.nextStep(), 1000);
-        };
-        productButtons.forEach(btn => btn.addEventListener('click', clickHandler));
-    }
-    
-    waitForCodeDelete() {
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-        const clickHandler = () => {
-            deleteButtons.forEach(btn => btn.removeEventListener('click', clickHandler));
-            setTimeout(() => this.nextStep(), 1000);
-        };
-        deleteButtons.forEach(btn => btn.addEventListener('click', clickHandler));
-    }
-    
-    waitForNetworkBlock() {
-        // Use event delegation since block links are dynamically added
-        const terminal = document.getElementById('terminal');
-        const clickHandler = (e) => {
-            if (e.target.classList.contains('block-link')) {
-                terminal.removeEventListener('click', clickHandler);
-                setTimeout(() => this.nextStep(), 1000);
-            }
-        };
-        terminal.addEventListener('click', clickHandler);
-        
-        // Trigger a network request to show block link
-        setTimeout(() => {
-            if (this.game.trackers[0] && !this.game.trackers[0].blocked) {
-                this.game.addNetworkRequest(this.game.trackers[0], 'tutorial', 'sample-data');
-            }
-        }, 500);
-    }
-    
-    nextStep() {
-        // Remove highlight from current element
-        const currentStep = this.steps[this.currentStep];
-        if (currentStep.highlight) {
-            const element = document.querySelector(currentStep.highlight);
-            if (element) {
-                element.classList.remove('tutorial-highlight');
-            }
-        }
-        
-        // Check if this was the last step
-        if (currentStep.isLastStep) {
-            this.completeTutorialAndStartGame();
-        } else if (this.currentStep < this.steps.length - 1) {
-            this.showStep(this.currentStep + 1);
-        } else {
-            this.completeTutorial();
-        }
-    }
-    
-    completeTutorialAndStartGame() {
-        // Show completion message
-        alert('🎉 Congratulations! Learning mode is complete!\n\n✅ You now understand:\n• How tracking pixels work\n• How to delete tracking code\n• How to block network requests\n\nThe game will now start. You have 45 seconds to block all 3 trackers!\n\n💡 Tip: Right-click the Reset button anytime to restart the tutorial.');
-        
-        // Complete tutorial
-        this.tutorialActive = false;
-        this.tutorialCompleted = true;
-        localStorage.setItem('tutorialCompleted', 'true');
-        
-        // Remove scroll handler
-        if (this.scrollHandler) {
-            window.removeEventListener('scroll', this.scrollHandler);
-            this.scrollHandler = null;
-        }
-        
-        // Clear current highlighted element reference
-        this.currentHighlightedElement = null;
-        
-        // Remove any highlights
-        document.querySelectorAll('.tutorial-highlight').forEach(el => {
-            el.classList.remove('tutorial-highlight');
-        });
-        
-        // Clear any learning highlights
-        this.clearDimming();
-        
-        // Hide tutorial UI
-        this.overlay.classList.add('hidden');
-        this.modal.classList.add('hidden');
-        
-        // Enable game controls
-        this.game.startBtn.disabled = false;
-        
-        // Auto-start the game
-        setTimeout(() => {
-            this.game.startGame();
-        }, 500);
-    }
-    
-    previousStep() {
-        if (this.currentStep > 0) {
-            // Remove highlight from current element
-            const currentStep = this.steps[this.currentStep];
-            if (currentStep.highlight) {
-                const element = document.querySelector(currentStep.highlight);
-                if (element) {
-                    element.classList.remove('tutorial-highlight');
-                }
-            }
-            this.showStep(this.currentStep - 1);
-        }
-    }
-    
-    skipTutorial() {
-        if (confirm('Are you sure you want to skip the tutorial? You can always restart it later.')) {
-            this.completeTutorial();
-        }
-    }
-    
-    completeTutorial() {
-        this.tutorialActive = false;
-        this.tutorialCompleted = true;
-        localStorage.setItem('tutorialCompleted', 'true');
-        
-        // Remove scroll handler
-        if (this.scrollHandler) {
-            window.removeEventListener('scroll', this.scrollHandler);
-            this.scrollHandler = null;
-        }
-        
-        // Clear current highlighted element reference
-        this.currentHighlightedElement = null;
-        
-        // Remove any highlights
-        document.querySelectorAll('.tutorial-highlight').forEach(el => {
-            el.classList.remove('tutorial-highlight');
-        });
-        
-        // Clear any learning highlights
-        this.clearDimming();
-        
-        // Hide tutorial UI
-        this.overlay.classList.add('hidden');
-        this.modal.classList.add('hidden');
-        
-        // Enable game controls
-        this.game.startBtn.disabled = false;
-        
-        // Auto-click start if tutorial was completed (not skipped)
-        if (this.currentStep >= this.steps.length - 1) {
-            setTimeout(() => {
-                alert('Tutorial complete! The game will now start. You have 45 seconds to block all 3 trackers!');
-                this.game.startGame();
-            }, 500);
-        }
-    }
-    
-    reset() {
-        localStorage.removeItem('tutorialCompleted');
-        this.tutorialCompleted = false;
-        this.start();
-    }
-}
-
 // Tracker Simulator Game
 class TrackerSimulator {
     constructor() {
@@ -600,15 +11,39 @@ class TrackerSimulator {
         this.requestInterval = null;
         this.timeOnSiteCounter = 0;
         this.dataLeaked = 0;
+        this.currentView = 'main'; // 'main' or 'detail'
+        this.currentProduct = null;
         
         this.trackers = [
-            { id: 1, name: 'analytics.com', company: 'Analytics Tracker', blocked: false, codeDeleted: false },
-            { id: 2, name: 'adnetwork.com', company: 'Ad Network', blocked: false, codeDeleted: false },
-            { id: 3, name: 'databroker.com', company: 'Data Broker', blocked: false, codeDeleted: false }
+            { 
+                id: 1, 
+                name: 'analytics.com', 
+                company: 'Analytics Tracker', 
+                blocked: false, 
+                codeDeleted: false,
+                code: '<img src="https://analytics.com/track.gif?user=12345&session=' + Date.now() + '" width="1" height="1" style="display:none" />'
+            },
+            { 
+                id: 2, 
+                name: 'adnetwork.com', 
+                company: 'Ad Network', 
+                blocked: false, 
+                codeDeleted: false,
+                code: '<script src="https://adnetwork.com/pixel.js?id=12345&ref=shopeasy"></script>'
+            },
+            { 
+                id: 3, 
+                name: 'databroker.com', 
+                company: 'Data Broker', 
+                blocked: false, 
+                codeDeleted: false,
+                code: '<img src="https://databroker.com/collect?id=12345&t=' + Date.now() + '" width="1" height="1" alt="" />'
+            }
         ];
         
         this.initializeElements();
         this.attachEventListeners();
+        this.updateHTMLDisplay();
     }
     
     initializeElements() {
@@ -620,20 +55,13 @@ class TrackerSimulator {
         this.resetBtn = document.getElementById('resetBtn');
         this.gameResult = document.getElementById('gameResult');
         this.terminal = document.getElementById('terminal');
+        this.htmlCode = document.getElementById('htmlCode');
+        this.codeDisplay = document.getElementById('codeDisplay');
     }
     
     attachEventListeners() {
         this.startBtn.addEventListener('click', () => this.startGame());
         this.resetBtn.addEventListener('click', () => this.resetGame());
-        
-        // Delete buttons for code lines
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const codeLine = e.target.closest('.tracking-line');
-                const trackerId = parseInt(codeLine.getAttribute('data-tracker'));
-                this.deleteCode(trackerId, codeLine);
-            });
-        });
         
         // Product interaction tracking - show detail page
         document.querySelectorAll('.btn-product').forEach(btn => {
@@ -653,6 +81,208 @@ class TrackerSimulator {
         }
     }
     
+    generateCurrentHTML() {
+        // Get the current shopping website HTML
+        const shoppingWebsite = document.getElementById('shoppingWebsite');
+        let html = shoppingWebsite.innerHTML;
+        
+        // Clean up the HTML for display (remove extra whitespace, format nicely)
+        html = this.formatHTML(html);
+        
+        return html;
+    }
+    
+    formatHTML(html) {
+        // Simple HTML formatter to make it more readable
+        let formatted = html;
+        
+        // Remove excessive whitespace
+        formatted = formatted.replace(/\s+/g, ' ').trim();
+        
+        // Add line breaks for readability
+        formatted = formatted.replace(/></g, '>\n<');
+        
+        // Basic indentation with line length consideration
+        const lines = formatted.split('\n');
+        let indentLevel = 0;
+        const indentedLines = lines.map(line => {
+            const trimmed = line.trim();
+            if (!trimmed) return '';
+            
+            // Decrease indent for closing tags
+            if (trimmed.startsWith('</')) {
+                indentLevel = Math.max(0, indentLevel - 1);
+            }
+            
+            const indent = '  '.repeat(indentLevel);
+            
+            // Break long lines (especially for long attribute strings)
+            let formattedLine = trimmed;
+            if (formattedLine.length > 60 && formattedLine.includes('http')) {
+                // Break after common attributes to improve readability
+                formattedLine = formattedLine
+                    .replace(/(\s+src=)/g, '\n' + indent + '  src=')
+                    .replace(/(\s+width=)/g, '\n' + indent + '  width=')
+                    .replace(/(\s+height=)/g, '\n' + indent + '  height=')
+                    .replace(/(\s+style=)/g, '\n' + indent + '  style=')
+                    .replace(/(\s+class=)/g, '\n' + indent + '  class=')
+                    .replace(/(\s+id=)/g, '\n' + indent + '  id=')
+                    .replace(/(\s+data-)/g, '\n' + indent + '  data-');
+                
+                // If first line after break, add base indent
+                const parts = formattedLine.split('\n');
+                if (parts.length > 1) {
+                    formattedLine = parts[0] + '\n' + parts.slice(1).join('\n');
+                }
+            }
+            
+            // Increase indent for opening tags (but not self-closing)
+            if (trimmed.startsWith('<') && !trimmed.startsWith('</') && !trimmed.endsWith('/>') && !this.isSelfClosing(trimmed)) {
+                indentLevel++;
+            }
+            
+            return indent + formattedLine;
+        }).filter(line => line.length > 0);
+        
+        return indentedLines.join('\n');
+    }
+    
+    isSelfClosing(tag) {
+        const selfClosingTags = ['img', 'br', 'hr', 'input', 'meta', 'link'];
+        for (const scTag of selfClosingTags) {
+            if (tag.match(new RegExp(`<${scTag}[\\s>]`, 'i'))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    updateHTMLDisplay() {
+        let html = this.generateCurrentHTML();
+        
+        // Inject tracking pixels into the HTML if game is active
+        if (this.gameActive) {
+            html = this.injectTrackingPixels(html);
+        }
+        
+        // Escape HTML for display
+        const escaped = this.escapeHTML(html);
+        
+        // Display the HTML
+        this.htmlCode.innerHTML = escaped;
+        
+        // After displaying, attach click handlers to tracking lines
+        if (this.gameActive) {
+            this.attachTrackingLineHandlers();
+        }
+    }
+    
+    injectTrackingPixels(html) {
+        // Find a good place to inject the tracking pixels (before </body> or at the end)
+        // We'll inject them in different places to make them less obvious
+        const lines = html.split('\n');
+        
+        // Insert trackers at strategic positions
+        const positions = this.findInjectionPositions(lines);
+        
+        // Insert trackers from bottom to top to maintain line numbers
+        const sortedPositions = positions.sort((a, b) => b - a);
+        
+        this.trackers.forEach((tracker, index) => {
+            if (!tracker.codeDeleted && sortedPositions[index] !== undefined) {
+                const pos = sortedPositions[index];
+                const indent = this.getIndentLevel(lines[pos]);
+                lines.splice(pos + 1, 0, indent + tracker.code);
+            }
+        });
+        
+        return lines.join('\n');
+    }
+    
+    findInjectionPositions(lines) {
+        // Find good positions to inject tracking code
+        const positions = [];
+        
+        // Look for closing div tags, end of sections, etc.
+        for (let i = lines.length - 1; i >= 0; i--) {
+            const line = lines[i].trim();
+            if (line.includes('</div>') || line.includes('</section>') || line.includes('</body>')) {
+                if (positions.length < 3) {
+                    positions.push(i);
+                }
+            }
+        }
+        
+        // If we didn't find enough positions, add some at the end
+        while (positions.length < 3) {
+            positions.push(lines.length - 1);
+        }
+        
+        return positions;
+    }
+    
+    getIndentLevel(line) {
+        const match = line.match(/^(\s*)/);
+        return match ? match[1] : '';
+    }
+    
+    escapeHTML(html) {
+        const lines = html.split('\n');
+        const escapedLines = lines.map((line, index) => {
+            let escaped = line.replace(/&/g, '&amp;')
+                             .replace(/</g, '&lt;')
+                             .replace(/>/g, '&gt;')
+                             .replace(/"/g, '&quot;')
+                             .replace(/'/g, '&#039;');
+            
+            // Check if this line contains a tracker
+            const trackerIndex = this.findTrackerInLine(line);
+            if (trackerIndex !== -1 && !this.trackers[trackerIndex].codeDeleted) {
+                // Wrap this line in a span with a data attribute
+                escaped = `<span class="code-line-clickable" data-tracker="${trackerIndex}" data-line="${index}">${escaped}</span>`;
+            } else if (trackerIndex !== -1 && this.trackers[trackerIndex].codeDeleted) {
+                // Mark as deleted
+                escaped = `<span class="code-line-deleted" data-line="${index}">${escaped}</span>`;
+            } else {
+                // Regular line
+                escaped = `<span class="code-line-normal" data-line="${index}">${escaped}</span>`;
+            }
+            
+            return escaped;
+        });
+        
+        return escapedLines.join('\n');
+    }
+    
+    findTrackerInLine(line) {
+        for (let i = 0; i < this.trackers.length; i++) {
+            if (line.includes(this.trackers[i].code)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    attachTrackingLineHandlers() {
+        // Add click handlers to tracking lines
+        const clickableLines = this.htmlCode.querySelectorAll('.code-line-clickable');
+        clickableLines.forEach(line => {
+            line.style.cursor = 'pointer';
+            line.addEventListener('click', (e) => {
+                const trackerId = parseInt(e.target.getAttribute('data-tracker'));
+                this.deleteCode(trackerId);
+            });
+            
+            // Add hover effect
+            line.addEventListener('mouseenter', (e) => {
+                e.target.style.backgroundColor = 'rgba(255, 87, 34, 0.2)';
+            });
+            line.addEventListener('mouseleave', (e) => {
+                e.target.style.backgroundColor = 'transparent';
+            });
+        });
+    }
+    
     startGame() {
         if (this.gameActive) return;
         
@@ -670,13 +300,11 @@ class TrackerSimulator {
             tracker.codeDeleted = false;
         });
         
-        // Reset UI
-        document.querySelectorAll('.tracking-line').forEach(line => {
-            line.classList.remove('deleted');
-        });
-        
         // Clear terminal
         this.terminal.innerHTML = '<div class="terminal-line">$ Monitoring network traffic...</div>';
+        
+        // Update HTML display with trackers
+        this.updateHTMLDisplay();
         
         this.updateUI();
         this.startTimer();
@@ -734,10 +362,7 @@ class TrackerSimulator {
         }
         url += `&time=${Date.now()}`;
         
-        requestLine.innerHTML = `
-            → GET ${url}
-            <span class="block-link" onclick="game.blockRequest(${tracker.id})">[ BLOCK ]</span>
-        `;
+        requestLine.innerHTML = `→ GET ${url}`;
         
         this.terminal.appendChild(requestLine);
         this.terminal.scrollTop = this.terminal.scrollHeight;
@@ -750,6 +375,9 @@ class TrackerSimulator {
         
         mainPage.style.display = 'none';
         detailPage.style.display = 'block';
+        
+        this.currentView = 'detail';
+        this.currentProduct = productName;
         
         // Update detail page content
         document.getElementById('detailIcon').textContent = productIcon;
@@ -805,7 +433,10 @@ class TrackerSimulator {
             specsList.appendChild(li);
         });
         
-        // Send tracking requests silently (no popup)
+        // Update HTML display
+        setTimeout(() => this.updateHTMLDisplay(), 100);
+        
+        // Send tracking requests
         if (this.gameActive) {
             const activeTrackers = this.trackers.filter(t => !t.blocked && !t.codeDeleted);
             activeTrackers.forEach(tracker => {
@@ -822,6 +453,12 @@ class TrackerSimulator {
         mainPage.style.display = 'block';
         detailPage.style.display = 'none';
         
+        this.currentView = 'main';
+        this.currentProduct = null;
+        
+        // Update HTML display
+        setTimeout(() => this.updateHTMLDisplay(), 100);
+        
         // Send tracking request for returning to main page
         if (this.gameActive) {
             const activeTrackers = this.trackers.filter(t => !t.blocked && !t.codeDeleted);
@@ -831,47 +468,18 @@ class TrackerSimulator {
         }
     }
     
-    blockRequest(trackerId) {
+    deleteCode(trackerId) {
         if (!this.gameActive) return;
         
-        const tracker = this.trackers.find(t => t.id === trackerId);
-        if (!tracker || tracker.blocked || tracker.codeDeleted) return;
-        
-        tracker.blocked = true;
-        this.trackersBlocked++;
-        
-        // Update terminal to show blocked requests
-        const requestLines = this.terminal.querySelectorAll(`[data-tracker="${trackerId}"]`);
-        requestLines.forEach(line => {
-            line.classList.remove('request');
-            line.classList.add('blocked');
-            const blockLink = line.querySelector('.block-link');
-            if (blockLink) blockLink.remove();
-        });
-        
-        // Add success message
-        const successLine = document.createElement('div');
-        successLine.className = 'terminal-line success';
-        successLine.textContent = `✓ BLOCKED: All requests to ${tracker.name} have been blocked!`;
-        this.terminal.appendChild(successLine);
-        this.terminal.scrollTop = this.terminal.scrollHeight;
-        
-        this.updateUI();
-        this.checkWinCondition();
-    }
-    
-    deleteCode(trackerId, codeLine) {
-        if (!this.gameActive) return;
-        
-        const tracker = this.trackers.find(t => t.id === trackerId);
+        const tracker = this.trackers.find(t => t.id === trackerId + 1); // trackerId is 0-indexed in array
         if (!tracker || tracker.codeDeleted) return;
         
         tracker.codeDeleted = true;
         tracker.blocked = true; // Deleting code also stops tracking
         this.trackersBlocked++;
         
-        // Update code display
-        codeLine.classList.add('deleted');
+        // Update HTML display
+        this.updateHTMLDisplay();
         
         // Update terminal
         const successLine = document.createElement('div');
@@ -881,13 +489,11 @@ class TrackerSimulator {
         this.terminal.scrollTop = this.terminal.scrollHeight;
         
         // Mark existing requests as blocked
-        const requestLines = this.terminal.querySelectorAll(`[data-tracker="${trackerId}"]`);
+        const requestLines = this.terminal.querySelectorAll(`[data-tracker="${tracker.id}"]`);
         requestLines.forEach(line => {
             if (line.classList.contains('request')) {
                 line.classList.remove('request');
                 line.classList.add('blocked');
-                const blockLink = line.querySelector('.block-link');
-                if (blockLink) blockLink.remove();
             }
         });
         
@@ -1005,41 +611,23 @@ class TrackerSimulator {
             tracker.codeDeleted = false;
         });
         
-        // Reset code display
-        document.querySelectorAll('.tracking-line').forEach(line => {
-            line.classList.remove('deleted');
-        });
-        
         // Clear terminal
         this.terminal.innerHTML = `
             <div class="terminal-line">$ Monitoring network traffic...</div>
             <div class="terminal-line">$ Waiting for activity...</div>
         `;
         
+        // Reset HTML display
+        this.updateHTMLDisplay();
+        
         this.updateUI();
     }
 }
 
-// Initialize game and tutorial
+// Initialize game
 let game;
-let tutorial;
 document.addEventListener('DOMContentLoaded', () => {
     game = new TrackerSimulator();
-    tutorial = new TutorialSystem(game);
-    
-    // Start tutorial automatically on first visit
-    setTimeout(() => {
-        tutorial.start();
-    }, 500);
-    
-    // Add reset tutorial button functionality
-    const resetBtn = document.getElementById('resetBtn');
-    resetBtn.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        if (confirm('Right-click detected! Do you want to restart the tutorial?')) {
-            tutorial.reset();
-        }
-    });
     
     // Add educational console messages
     console.log('%c🔒 Privacy Education Simulator', 'color: #667eea; font-size: 18px; font-weight: bold;');
@@ -1056,14 +644,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%c• Use privacy-focused browsers like Brave', 'color: #666; font-size: 12px;');
     console.log('%c• Clear cookies and disable third-party cookies', 'color: #666; font-size: 12px;');
     console.log('%c• Consider using a VPN to hide your IP address', 'color: #666; font-size: 12px;');
-    console.log('%c', 'font-size: 12px;');
-    console.log('%c💡 Tip: Right-click the Reset button to restart the tutorial!', 'color: #667eea; font-size: 12px; font-weight: bold;');
 });
 
-// Make game available globally for inline onclick
+// Make game available globally
 window.game = null;
-window.tutorial = null;
 document.addEventListener('DOMContentLoaded', () => {
     window.game = game;
-    window.tutorial = tutorial;
 });

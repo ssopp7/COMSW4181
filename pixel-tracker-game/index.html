@@ -16,18 +16,19 @@
         <!-- Game Instructions -->
         <div class="instructions">
             <h2>🎯 Mission: Stop the Tracking!</h2>
-            <p>This shopping website has hidden tracking pixels sending your data to 3 companies. You have <strong>45 seconds</strong> to stop them by:</p>
+            <p>This shopping website has hidden tracking pixels sending your data to 3 companies. You have <strong>45 seconds</strong> to stop them by finding and deleting the tracking code lines in the HTML!</p>
             <div class="instruction-options">
                 <div class="option">
                     <span class="option-number">1</span>
-                    <span>Delete tracking code from HTML</span>
-                </div>
-                <div class="option">
-                    <span class="option-number">OR</span>
+                    <span>Explore the website and watch the HTML change in real-time</span>
                 </div>
                 <div class="option">
                     <span class="option-number">2</span>
-                    <span>Block network requests in the terminal</span>
+                    <span>Find the 3 hidden tracking pixel lines in the HTML code</span>
+                </div>
+                <div class="option">
+                    <span class="option-number">3</span>
+                    <span>Click on suspicious lines to delete them and stop tracking</span>
                 </div>
             </div>
             <button id="startBtn" class="btn-start">▶️ Start Simulation</button>
@@ -58,7 +59,7 @@
                     <h3>🛍️ ShopEasy.com - Your Shopping Site</h3>
                     <span class="badge">User View</span>
                 </div>
-                <div class="shopping-website">
+                <div class="shopping-website" id="shoppingWebsite">
                     <div class="site-header">
                         <div class="logo">🛒 ShopEasy</div>
                         <div class="user-info">Welcome, User #<span id="userId">12345</span></div>
@@ -130,31 +131,11 @@
                 <!-- HTML Code Section -->
                 <div class="code-section">
                     <div class="section-header">
-                        <h3>� Website HTML Code</h3>
+                        <h3>📝 Website HTML Code</h3>
                         <span class="badge danger">Tracking Active</span>
                     </div>
-                    <div class="code-display">
-                        <pre><code>&lt;body&gt;
-  &lt;div class="products"&gt;...&lt;/div&gt;
-  
-  <span class="code-line tracking-line" id="tracker1Code" data-tracker="1">
-  &lt;!-- Analytics Tracker --&gt;
-  &lt;img src="analytics.com/track.gif?user=12345" 
-       width="1" height="1" /&gt;
-  <button class="delete-btn" title="Delete this line">❌</button></span>
-  
-  <span class="code-line tracking-line" id="tracker2Code" data-tracker="2">
-  &lt;!-- Ad Network Tracker --&gt;
-  &lt;script src="adnetwork.com/pixel.js"&gt;&lt;/script&gt;
-  <button class="delete-btn" title="Delete this line">❌</button></span>
-  
-  <span class="code-line tracking-line" id="tracker3Code" data-tracker="3">
-  &lt;!-- Data Broker Tracker --&gt;
-  &lt;img src="databroker.com/collect?id=12345" 
-       width="1" height="1" /&gt;
-  <button class="delete-btn" title="Delete this line">❌</button></span>
-
-&lt;/body&gt;</code></pre>
+                    <div class="code-display" id="codeDisplay">
+                        <pre><code id="htmlCode"></code></pre>
                     </div>
                 </div>
 

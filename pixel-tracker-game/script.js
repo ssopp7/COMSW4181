@@ -247,11 +247,19 @@ class TutorialSystem {
     handleStepAction(action) {
         if (action === 'waitForCodeDelete') {
             const codeLines = document.querySelectorAll('.code-line');
-            const clickHandler = () => {
-                codeLines.forEach(line => line.removeEventListener('click', clickHandler));
-                setTimeout(() => this.nextStep(), 1000);
+            const clickHandler = (e) => {
+                const trackerId = e.target.getAttribute('data-tracker');
+                
+                if (trackerId) {
+                    // Correct! They clicked a tracking pixel line
+                    codeLines.forEach(line => line.removeEventListener('click', clickHandler));
+                    setTimeout(() => this.nextStep(), 1000);
+                } else {
+                    // Wrong line! Show error modal
+                    this.game.showErrorModal();
+                }
             };
-            codeLines.forEach(line => line.addEventListener('click', clickHandler, { once: true }));
+            codeLines.forEach(line => line.addEventListener('click', clickHandler));
         } else if (action === 'waitForNetworkBlock') {
             const terminal = document.getElementById('terminal');
             const clickHandler = (e) => {

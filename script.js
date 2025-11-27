@@ -1,118 +1,256 @@
-// Navigation state
-let currentView = 'home-view';
-let viewHistory = ['home-view'];
+// Navigation State
+let currentPage = 'home';
 
-// Get DOM elements
-const homeBtn = document.getElementById('home-btn');
-const backBtn = document.getElementById('back-btn');
-const allActionBtns = document.querySelectorAll('.action-btn');
-const allViews = document.querySelectorAll('.view');
+// DOM Elements
+const tocToggle = document.getElementById('toc-toggle');
+const tocNav = document.getElementById('toc-nav');
+const logoHome = document.getElementById('logo-home');
+const allPages = document.querySelectorAll('.page');
+const allTocLinks = document.querySelectorAll('.toc-link');
+const allSectionBtns = document.querySelectorAll('.toc-section-btn');
+const allSubsectionBtns = document.querySelectorAll('.toc-subsection-btn');
 
-// Initialize the app
+// Initialize the application
 function init() {
-    // Show home view by default
-    showView('home-view', false);
+    setupEventListeners();
+    showPage('home');
+    console.log('PixelEd Navigation System Initialized');
+}
+
+// Setup Event Listeners
+function setupEventListeners() {
+    // TOC Toggle Button
+    tocToggle.addEventListener('click', toggleTOC);
     
-    // Set up event listeners
-    homeBtn.addEventListener('click', goHome);
-    backBtn.addEventListener('click', goBack);
+    // Logo Click - Return to Home
+    logoHome.addEventListener('click', () => {
+        navigateToPage('home');
+        closeTOC();
+    });
     
-    // Add click listeners to all action buttons
-    allActionBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const targetView = this.getAttribute('data-view');
-            if (targetView) {
-                showView(targetView, true);
-            }
+    // TOC Links
+    allTocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageName = link.getAttribute('data-page');
+            navigateToPage(pageName);
+            closeTOC();
         });
+    });
+    
+    // Section Toggle Buttons
+    allSectionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sectionId = btn.getAttribute('data-section');
+            toggleSection(sectionId, btn);
+        });
+    });
+    
+    // Subsection Toggle Buttons
+    allSubsectionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const subsectionId = btn.getAttribute('data-subsection');
+            toggleSubsection(subsectionId, btn);
+        });
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeyboardShortcuts);
+    
+    // Close TOC when clicking outside
+    document.addEventListener('click', (e) => {
+        if (tocNav.classList.contains('active') && 
+            !tocNav.contains(e.target) && 
+            !tocToggle.contains(e.target)) {
+            closeTOC();
+        }
     });
 }
 
-// Show a specific view
-function showView(viewId, addToHistory = true) {
-    // Hide all views
-    allViews.forEach(view => {
-        view.classList.remove('active');
+// Toggle Table of Contents
+function toggleTOC() {
+    tocToggle.classList.toggle('active');
+    tocNav.classList.toggle('active');
+}
+
+// Close Table of Contents
+function closeTOC() {
+    tocToggle.classList.remove('active');
+    tocNav.classList.remove('active');
+}
+
+// Toggle Section (Module)
+function toggleSection(sectionId, button) {
+    const section = document.getElementById(sectionId);
+    
+    if (section) {
+        const isActive = section.classList.contains('active');
+        
+        // Close all other sections
+        document.querySelectorAll('.toc-subsection').forEach(s => {
+            if (s.id !== sectionId) {
+                s.classList.remove('active');
+            }
+        });
+        
+        // Close all section buttons
+        allSectionBtns.forEach(btn => {
+            if (btn !== button) {
+                btn.classList.remove('active');
+            }
+        });
+        
+        // Toggle current section
+        section.classList.toggle('active');
+        button.classList.toggle('active');
+    }
+}
+
+// Toggle Subsection
+function toggleSubsection(subsectionId, button) {
+    const subsection = document.getElementById(subsectionId);
+    
+    if (subsection) {
+        subsection.classList.toggle('active');
+        button.classList.toggle('active');
+    }
+}
+
+// Navigate to Page
+function navigateToPage(pageName) {
+    if (pageName === currentPage) return;
+    
+    // Hide all pages
+    allPages.forEach(page => {
+        page.classList.remove('active');
     });
     
-    // Show the target view
-    const targetView = document.getElementById(viewId);
-    if (targetView) {
-        targetView.classList.add('active');
-        currentView = viewId;
+    // Show target page
+    const targetPage = document.getElementById(`page-${pageName}`);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        currentPage = pageName;
         
-        // Add to history if requested
-        if (addToHistory) {
-            viewHistory.push(viewId);
-        }
-        
-        // Update navigation buttons
-        updateNavButtons();
+        // Update active link in TOC
+        updateActiveTOCLink(pageName);
         
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}
-
-// Go back to previous view
-function goBack() {
-    if (viewHistory.length > 1) {
-        // Remove current view from history
-        viewHistory.pop();
         
-        // Get previous view
-        const previousView = viewHistory[viewHistory.length - 1];
+        // Update URL hash without scrolling
+        history.pushState({ page: pageName }, '', `#${pageName}`);
+    }
+}
+
+// Show Page (for initialization)
+function showPage(pageName) {
+    // Hide all pages
+    allPages.forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Show target page
+    const targetPage = document.getElementById(`page-${pageName}`);
+    if (targetPage) {
+        targetPage.classList.add('active');
+        currentPage = pageName;
+        updateActiveTOCLink(pageName);
+    }
+}
+
+// Update Active TOC Link
+function updateActiveTOCLink(pageName) {
+    // Remove active class from all links
+    allTocLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Add active class to current link
+    const activeLink = document.querySelector(`.toc-link[data-page="${pageName}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
         
-        // Show previous view without adding to history
-        showView(previousView, false);
+        // Expand parent sections if needed
+        expandParentSections(activeLink);
     }
 }
 
-// Go to home view
-function goHome() {
-    // Clear history and go to home
-    viewHistory = ['home-view'];
-    showView('home-view', false);
-}
-
-// Update navigation button states
-function updateNavButtons() {
-    // Update Home button
-    if (currentView === 'home-view') {
-        homeBtn.classList.add('active');
-        backBtn.style.display = 'none';
-    } else {
-        homeBtn.classList.remove('active');
-        backBtn.style.display = 'inline-block';
+// Expand Parent Sections
+function expandParentSections(link) {
+    let parent = link.parentElement;
+    
+    while (parent) {
+        // Check if parent is a subsection
+        if (parent.classList.contains('toc-subsection')) {
+            parent.classList.add('active');
+            
+            // Find and activate the corresponding button
+            const sectionId = parent.id;
+            const sectionBtn = document.querySelector(`[data-section="${sectionId}"]`);
+            if (sectionBtn) {
+                sectionBtn.classList.add('active');
+            }
+        }
+        
+        // Check if parent is a subsubsection
+        if (parent.classList.contains('toc-subsubsection')) {
+            parent.classList.add('active');
+            
+            // Find and activate the corresponding button
+            const subsectionId = parent.id;
+            const subsectionBtn = document.querySelector(`[data-subsection="${subsectionId}"]`);
+            if (subsectionBtn) {
+                subsectionBtn.classList.add('active');
+            }
+        }
+        
+        parent = parent.parentElement;
     }
 }
 
-// Handle keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    // ESC key or Backspace to go back (when not in input field)
-    if ((e.key === 'Escape' || (e.key === 'Backspace' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA')) && currentView !== 'home-view') {
-        e.preventDefault();
-        goBack();
+// Keyboard Shortcuts
+function handleKeyboardShortcuts(e) {
+    // ESC to close TOC
+    if (e.key === 'Escape' && tocNav.classList.contains('active')) {
+        closeTOC();
     }
     
-    // Alt+H to go home
-    if (e.altKey && e.key === 'h') {
+    // Ctrl/Cmd + K to toggle TOC
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
-        goHome();
+        toggleTOC();
     }
-});
+    
+    // Ctrl/Cmd + H to go home
+    if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+        e.preventDefault();
+        navigateToPage('home');
+        closeTOC();
+    }
+}
 
-// Handle browser back button
-window.addEventListener('popstate', function(e) {
-    if (e.state && e.state.view) {
-        showView(e.state.view, false);
+// Handle Browser Back/Forward Buttons
+window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.page) {
+        showPage(e.state.page);
     } else {
-        goHome();
+        // Get page from URL hash
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+            showPage(hash);
+        } else {
+            showPage('home');
+        }
     }
 });
 
-// Push initial state
-history.replaceState({ view: 'home-view' }, '', '');
+// Handle Initial URL Hash
+window.addEventListener('load', () => {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        navigateToPage(hash);
+    }
+});
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
@@ -121,30 +259,21 @@ if (document.readyState === 'loading') {
     init();
 }
 
-// Add smooth scroll behavior for internal links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+// Console Welcome Message
+console.log('%c🎓 PixelEd - Pixel Tracking Education Platform', 'font-size: 18px; font-weight: bold; color: #000000;');
+console.log('%cKeyboard Shortcuts:', 'font-weight: bold; margin-top: 10px;');
+console.log('  • Ctrl/Cmd + K: Toggle Table of Contents');
+console.log('  • Ctrl/Cmd + H: Go to Home');
+console.log('  • ESC: Close Table of Contents');
+
+// Next Section Button Navigation
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('next-section-btn') || e.target.closest('.next-section-btn')) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        const btn = e.target.classList.contains('next-section-btn') ? e.target : e.target.closest('.next-section-btn');
+        const nextPage = btn.getAttribute('data-page');
+        if (nextPage) {
+            navigateToPage(nextPage);
         }
-    });
+    }
 });
-
-// Optional: Add loading state for iframes
-document.querySelectorAll('.iframe-container iframe').forEach(iframe => {
-    iframe.addEventListener('load', function() {
-        console.log('Iframe loaded:', this.title);
-    });
-});
-
-// Console welcome message
-console.log('%c🔍 Pixel Tracking Education', 'font-size: 20px; color: #667eea; font-weight: bold;');
-console.log('%cWelcome to the Pixel Tracking Education web app!', 'color: #764ba2;');
-console.log('%cKeyboard shortcuts:', 'font-weight: bold; color: #667eea;');
-console.log('  • ESC or Backspace: Go back');
-console.log('  • Alt+H: Go to home');

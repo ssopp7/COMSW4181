@@ -49,51 +49,14 @@
                             <span class="arrow">▼</span>
                         </button>
                         <ul class="toc-subsection" id="module2">
-                            <li>
-                                <button class="toc-subsection-btn" data-subsection="meta-pixel">
-                                    <span>Meta Pixel</span>
-                                    <span class="arrow">▼</span>
-                                </button>
-                                <ul class="toc-subsubsection" id="meta-pixel">
-                                    <li><a href="#meta-about" class="toc-link" data-page="meta-about">About</a></li>
-                                    <li><a href="#meta-stats" class="toc-link" data-page="meta-stats">Stats</a></li>
-                                    <li><a href="#meta-implement" class="toc-link" data-page="meta-implement">How to implement</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <button class="toc-subsection-btn" data-subsection="tiktok-pixel">
-                                    <span>TikTok Pixel</span>
-                                    <span class="arrow">▼</span>
-                                </button>
-                                <ul class="toc-subsubsection" id="tiktok-pixel">
-                                    <li><a href="#tiktok-about" class="toc-link" data-page="tiktok-about">About</a></li>
-                                    <li><a href="#tiktok-stats" class="toc-link" data-page="tiktok-stats">Stats</a></li>
-                                    <li><a href="#tiktok-implement" class="toc-link" data-page="tiktok-implement">How to implement</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <button class="toc-subsection-btn" data-subsection="google-analytics">
-                                    <span>Google Ads and Analytics</span>
-                                    <span class="arrow">▼</span>
-                                </button>
-                                <ul class="toc-subsubsection" id="google-analytics">
-                                    <li><a href="#google-about" class="toc-link" data-page="google-about">About</a></li>
-                                    <li><a href="#google-stats" class="toc-link" data-page="google-stats">Stats</a></li>
-                                    <li><a href="#google-implement" class="toc-link" data-page="google-implement">How to implement</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="#meta-pixel" class="toc-link" data-page="meta-pixel">Meta Pixel</a></li>
+                            <li><a href="#tiktok-pixel" class="toc-link" data-page="tiktok-pixel">TikTok Pixel</a></li>
+                            <li><a href="#google-pixel" class="toc-link" data-page="google-pixel">Google Ads and Analytics</a></li>
                             <li><a href="#real-world-exploration" class="toc-link" data-page="real-world-exploration">Real World Exploration</a></li>
                         </ul>
                     </li>
                     <li>
-                        <button class="toc-section-btn" data-section="module3">
-                            <span>Module 3: Pixel Simulation</span>
-                            <span class="arrow">▼</span>
-                        </button>
-                        <ul class="toc-subsection" id="module3">
-                            <li><a href="#visualization-dashboard" class="toc-link" data-page="visualization-dashboard">Visualization dashboard</a></li>
-                            <li><a href="#ecommerce-demo" class="toc-link" data-page="ecommerce-demo">E-commerce site with pixel embedded</a></li>
-                        </ul>
+                        <a href="#pixel-simulation" class="toc-link" data-page="pixel-simulation">Module 3: Pixel Simulation</a>
                     </li>
                     <li>
                         <button class="toc-section-btn" data-section="module4">
@@ -167,7 +130,9 @@
      height="1" 
      style="display:none" /&gt;</code></pre>
                     
-                    <a href="#how-tracking-works" class="next-section-btn" data-page="how-tracking-works">Next: How tracking pixels work?</a>
+                    <div class="section-navigation">
+                        <a href="#how-tracking-works" class="next-section-btn" data-page="how-tracking-works">Next: Module 1 - How tracking pixels work?</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -197,7 +162,10 @@
                         <li><strong>Screen Resolution:</strong> Display dimensions (via JavaScript)</li>
                     </ul>
                     
-                    <a href="#types-of-pixels" class="next-section-btn" data-page="types-of-pixels">Next: Types of Tracking Pixels</a>
+                    <div class="section-navigation">
+                        <a href="#what-is-tracking-pixel" class="prev-section-btn" data-page="what-is-tracking-pixel">Previous: Module 1 - What is a tracking pixel?</a>
+                        <a href="#types-of-pixels" class="next-section-btn" data-page="types-of-pixels">Next: Module 1 - Types of Tracking Pixels</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -270,7 +238,10 @@
                         </tbody>
                     </table>
                     
-                    <a href="#data-collection" class="next-section-btn" data-page="data-collection">Next: Data Collection Methods</a>
+                    <div class="section-navigation">
+                        <a href="#how-tracking-works" class="prev-section-btn" data-page="how-tracking-works">Previous: Module 1 - How tracking pixels work?</a>
+                        <a href="#data-collection" class="next-section-btn" data-page="data-collection">Next: Module 1 - Data Collection Methods</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -341,7 +312,10 @@
                         <li><strong>Do Not Track:</strong> navigator.doNotTrack status</li>
                     </ul>
                     
-                    <a href="#pixels-vs-cookies" class="next-section-btn" data-page="pixels-vs-cookies">Next: Pixels vs. Cookies</a>
+                    <div class="section-navigation">
+                        <a href="#types-of-pixels" class="prev-section-btn" data-page="types-of-pixels">Previous: Module 1 - Types of Tracking Pixels</a>
+                        <a href="#pixels-vs-cookies" class="next-section-btn" data-page="pixels-vs-cookies">Next: Module 1 - Pixels vs. Cookies</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -349,102 +323,321 @@
         <section id="page-pixels-vs-cookies" class="page">
             <div class="content-wrapper">
                 <h1 class="page-title">Pixels vs. Cookies</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#meta-about" class="next-section-btn" data-page="meta-about">Next: Meta Pixel - About</a>
+                <div class="content-section">
+                    <p>When it comes to tracking user behavior online, pixels and cookies are two fundamental technologies that work together—but in very different ways. Understanding the distinction is crucial to grasping how companies collect your data.</p>
+                    
+                    <h2>Comparison Table</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                        <thead>
+                            <tr style="background: #000000; color: #ffffff;">
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Aspects</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Cookies</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Pixels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Physical Storage</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Stored ON your device</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Stored on company's server</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">What It Is</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Text file (4KB-180KB)</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Invisible image request (1KB)</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Persistence</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Can last months/years</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Fires once per page load</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Creation</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Websites explicitly set them</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Embedded in website code</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Visibility</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Hidden in browser settings</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Completely invisible</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Tracking Scope</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Within single site or cross-site (with consent)</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Across any website with the pixel</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Data Access</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Read by the same domain that set it</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Accessible to the pixel company</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Requires JavaScript</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">No</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">No</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Privacy Risk</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Moderate (if third-party)</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">High (silent, real-time tracking)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h2>What Are Cookies?</h2>
+                    <p>A cookie is a small text file that websites store directly on your device. It acts as a digital ID card that remembers information about you.</p>
+                    
+                    <h3>How They Work:</h3>
+                    <ol class="feature-list">
+                        <li>You visit a website</li>
+                        <li>The website's server sends a cookie to your browser</li>
+                        <li>Your browser stores it in a folder on your computer</li>
+                        <li>On your next visit, the website reads that cookie and "remembers" who you are</li>
+                    </ol>
+                    
+                    <h3>Cookie Code Examples</h3>
+                    <pre><code>// Creating a cookie
+document.cookie = "userId=12345; expires=Wed, 09 Jun 2025 10:00:00 UTC; path=/";
+
+// Reading a cookie
+console.log(document.cookie); // Output: userId=12345</code></pre>
+                    
+                    <h3>Types of Cookies:</h3>
+                    <ul class="feature-list">
+                        <li><strong>Session cookies</strong> – Deleted when you close your browser (used for login info)</li>
+                        <li><strong>Persistent cookies</strong> – Remain on your device for months or years (used for preferences)</li>
+                        <li><strong>First-party cookies</strong> – Set by the website you're visiting (e.g., amazon.com sets a cookie on Amazon)</li>
+                        <li><strong>Third-party cookies</strong> – Set by external companies tracking you across sites (e.g., Google tracking you on multiple websites)</li>
+                    </ul>
+                    
+                    <h2>How Tracking Pixels Work?</h2>
+                    <p>When you land on a webpage with a pixel embedded:</p>
+                    <ol class="feature-list">
+                        <li>Your browser requests the pixel image from a tracking server</li>
+                        <li>The server records your activity (time, location, page visited, device type)</li>
+                        <li>A unique identifier (cookie or ID) links this data to your profile</li>
+                        <li>Data is stored and used for targeted ads, analytics, or remarketing</li>
+                    </ol>
+                    
+                    <h3>Simple Tracking Pixel Code</h3>
+                    <pre><code>&lt;!-- Simple tracking pixel code --&gt;
+&lt;img src="https://analytics.example.com/pixel.gif?user=12345&page=homepage" 
+     width="1" height="1" style="display:none;"&gt;</code></pre>
+                    <p><em>This single line of code silently collects data every time the page loads.</em></p>
+                    
+                    <h3>Types of Pixels</h3>
+                    <a href="#types-of-pixels" class="next-section-btn" data-page="types-of-pixels">Go to Types of Tracking Pixels</a>
+                    
+                    <div class="section-navigation">
+                        <a href="#data-collection" class="prev-section-btn" data-page="data-collection">Previous: Module 1 - Data Collection Methods</a>
+                        <a href="#meta-pixel" class="next-section-btn" data-page="meta-pixel">Next: Module 2 - Meta Pixel</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Module 2 Pages - Meta Pixel -->
-        <section id="page-meta-about" class="page">
+        <section id="page-meta-pixel" class="page">
             <div class="content-wrapper">
-                <h1 class="page-title">Meta Pixel - About</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#meta-stats" class="next-section-btn" data-page="meta-stats">Next: Meta Pixel - Stats</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-meta-stats" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">Meta Pixel - Stats</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#meta-implement" class="next-section-btn" data-page="meta-implement">Next: Meta Pixel - How to implement</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-meta-implement" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">Meta Pixel - How to implement</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#tiktok-about" class="next-section-btn" data-page="tiktok-about">Next: TikTok Pixel - About</a>
+                <h1 class="page-title">Meta Pixel</h1>
+                <div class="content-section">
+                    <h2>About</h2>
+                    <p>Meta's tracking technology monitors user behavior on websites to help advertisers target ads on Facebook and Instagram.</p>
+                    
+                    <h3>What it tracks:</h3>
+                    <ul class="feature-list">
+                        <li>Page visits</li>
+                        <li>Products viewed</li>
+                        <li>Purchases</li>
+                        <li>Add-to-cart actions</li>
+                        <li>Sign-ups</li>
+                    </ul>
+                    
+                    <h2>Statistics</h2>
+                    <p>Used on ~20% of websites globally; powers Facebook's ad targeting</p>
+                    
+                    <h2>How to Implement</h2>
+                    <pre><code>&lt;!-- Meta Pixel Base Code --&gt;
+&lt;script&gt;
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'YOUR_PIXEL_ID_HERE');
+  fbq('track', 'PageView');
+&lt;/script&gt;</code></pre>
+                    
+                    <p><strong>Reference:</strong> Head over to <a href="https://www.facebook.com/business/help" target="_blank">Meta Business Help Center</a> to read more.</p>
+                    
+                    <h2>Real World Example</h2>
+                    <p>Meta provides a browser extension to help developers with their meta pixel implementations.</p>
+                    <p><a href="https://chromewebstore.google.com/detail/meta-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc?hl=en" target="_blank">Meta Pixel Helper Chrome Extension</a></p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/meta-pixel-helper-extension.png" alt="Meta Pixel Helper Chrome Extension" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <p>We will use this browser extension to check for meta pixels. When doing so, we will need to disable ad blockers to prevent the pixels from being blocked. (More on pixel tracker blockers in Module 4.)</p>
+                    
+                    <h3>(1) Visit Site</h3>
+                    <p>This example will go to <a href="https://www.tc.columbia.edu/" target="_blank">https://www.tc.columbia.edu/</a>, the landing page for Teacher's College, one of the schools of Columbia University.</p>
+                    
+                    <h3>(2) Open Extensions</h3>
+                    <p>Click on the puzzle piece icon to the right of the search bar to open up extensions.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/browser-extensions-icon.png" alt="Browser Extensions Icon" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <p>This will open up a list of extensions added to your browser.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/extensions-menu.png" alt="Extensions Menu" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <h3>(3) Disable Ad Blockers</h3>
+                    <p>Columbia University readily provides students with free Malwarebytes lessons. Malwarebytes blocks meta pixels, so we need to disable its ad blocking for this particular site. If you have any browser extensions with ad blocking, check to see if they are blocking the meta pixel.</p>
+                    
+                    <h3>(4) Check Meta Pixel Helper icon</h3>
+                    <p>If there are pixels detected, the icon will include a green notification bubble with the number of pixels detected. Some sites will include multiple different meta pixels.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/meta-pixel-helper-active.png" alt="Meta Pixel Helper Active Icon" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <h3>(5) Click on Meta Pixel Helper icon to open extension window</h3>
+                    <p>The extension found one pixel on Teacher's College's website.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/meta-pixel-helper-details.png" alt="Meta Pixel Helper Details Panel" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <div class="section-navigation">
+                        <a href="#pixels-vs-cookies" class="prev-section-btn" data-page="pixels-vs-cookies">Previous: Module 1 - Pixels vs. Cookies</a>
+                        <a href="#tiktok-pixel" class="next-section-btn" data-page="tiktok-pixel">Next: Module 2 - TikTok Pixel</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Module 2 Pages - TikTok Pixel -->
-        <section id="page-tiktok-about" class="page">
+        <section id="page-tiktok-pixel" class="page">
             <div class="content-wrapper">
-                <h1 class="page-title">TikTok Pixel - About</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#tiktok-stats" class="next-section-btn" data-page="tiktok-stats">Next: TikTok Pixel - Stats</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-tiktok-stats" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">TikTok Pixel - Stats</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#tiktok-implement" class="next-section-btn" data-page="tiktok-implement">Next: TikTok Pixel - How to implement</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-tiktok-implement" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">TikTok Pixel - How to implement</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#google-about" class="next-section-btn" data-page="google-about">Next: Google Ads and Analytics - About</a>
+                <h1 class="page-title">TikTok Pixel</h1>
+                <div class="content-section">
+                    <h2>About</h2>
+                    <p>TikTok's pixel tracks user actions on your website to optimize ad campaigns and create lookalike audiences.</p>
+                    
+                    <h3>What it tracks:</h3>
+                    <ul class="feature-list">
+                        <li>Website visits</li>
+                        <li>User interactions</li>
+                        <li>Conversions</li>
+                        <li>Product purchases</li>
+                    </ul>
+                    
+                    <h2>Statistics</h2>
+                    <p>Used on growing e-commerce sites; TikTok has 1B+ monthly active users</p>
+                    
+                    <h2>How to Implement</h2>
+                    <pre><code>&lt;!-- TikTok Pixel Code --&gt;
+&lt;script&gt;
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+    ttq.methods=["track","trackEvent","trackPageView","trackIdentity","resetUser","setUser","setUserProperties","trackCurrency","trackConversion"];
+    ttq.setAndDefer=function(t,e){t[e]=t[e]||[]};
+    for(var i=0;i&lt;ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+    ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n&lt;e.length;n++)e[n][0].apply(null,e[n][1]);};
+    ttq.load=function(e,t){var n="https://analytics.tiktok.com/i18n/pixel/events.js";
+    ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e].push([t]);
+    var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src=n;
+    document.getElementsByTagName("script")[0].parentNode.insertBefore(r,document.currentScript);
+  }}(window,document,"ttq");
+  ttq.load('YOUR_PIXEL_ID');
+  ttq.trackPageView();
+&lt;/script&gt;</code></pre>
+                    
+                    <p><strong>Reference:</strong> Visit <a href="https://ads.tiktok.com/help/article/tiktok-pixel" target="_blank">TikTok for Business - Pixel Setup</a> to know more.</p>
+                    
+                    <div class="section-navigation">
+                        <a href="#meta-pixel" class="prev-section-btn" data-page="meta-pixel">Previous: Module 2 - Meta Pixel</a>
+                        <a href="#google-pixel" class="next-section-btn" data-page="google-pixel">Next: Module 2 - Google Ads and Analytics</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Module 2 Pages - Google Ads and Analytics -->
-        <section id="page-google-about" class="page">
+        <section id="page-google-pixel" class="page">
             <div class="content-wrapper">
-                <h1 class="page-title">Google Ads and Analytics - About</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#google-stats" class="next-section-btn" data-page="google-stats">Next: Google Ads and Analytics - Stats</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-google-stats" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">Google Ads and Analytics - Stats</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#google-implement" class="next-section-btn" data-page="google-implement">Next: Google Ads and Analytics - How to implement</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-google-implement" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">Google Ads and Analytics - How to implement</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#real-world-exploration" class="next-section-btn" data-page="real-world-exploration">Next: Real World Exploration</a>
+                <h1 class="page-title">Google Ads and Analytics</h1>
+                <div class="content-section">
+                    <h2>About</h2>
+                    <p>Google's dual system tracks website visitors and conversions to measure ad performance and user behavior.</p>
+                    
+                    <h3>What it Tracks:</h3>
+                    <ul class="feature-list">
+                        <li>Page views</li>
+                        <li>User demographics</li>
+                        <li>Traffic sources</li>
+                        <li>Conversion actions</li>
+                        <li>E-commerce transactions</li>
+                    </ul>
+                    
+                    <h2>Statistics</h2>
+                    <p>Google Analytics used on ~87% of tracked websites; most dominant analytics tool globally</p>
+                    
+                    <h2>How to Implement</h2>
+                    
+                    <h3>Google Analytics 4:</h3>
+                    <pre><code>&lt;!-- Google Analytics 4 Code --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+  
+  // Track a conversion event
+  gtag('event', 'purchase', {
+    value: 99.99,
+    currency: 'USD',
+    items: [{
+      item_name: 'Product Name',
+      quantity: 1
+    }]
+  });
+&lt;/script&gt;</code></pre>
+                    
+                    <h3>Google Ads Conversion Tracking:</h3>
+                    <pre><code>&lt;!-- Google Ads Conversion Tracking --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=AW-CONVERSION_ID"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-CONVERSION_ID');
+  
+  // Fire conversion when user completes action
+  gtag('event', 'conversion', {
+    'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL'
+  });
+&lt;/script&gt;</code></pre>
+                    
+                    <h3>References:</h3>
+                    <ul class="feature-list">
+                        <li><a href="https://support.google.com/analytics" target="_blank">Google Analytics Documentation</a></li>
+                        <li><a href="https://support.google.com/google-ads/answer/1722022" target="_blank">Google Ads Conversion Tracking</a></li>
+                    </ul>
+                    
+                    <div class="section-navigation">
+                        <a href="#tiktok-pixel" class="prev-section-btn" data-page="tiktok-pixel">Previous: Module 2 - TikTok Pixel</a>
+                        <a href="#real-world-exploration" class="next-section-btn" data-page="real-world-exploration">Next: Module 2 - Real World Exploration</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -452,30 +645,159 @@
         <section id="page-real-world-exploration" class="page">
             <div class="content-wrapper">
                 <h1 class="page-title">Real World Exploration</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#visualization-dashboard" class="next-section-btn" data-page="visualization-dashboard">Next: Visualization Dashboard</a>
+                <div class="content-section">
+                    <h2>Browser Extensions</h2>
+                    <p>Meta, TikTok, and Google provide Chrome browser extensions to help developers troubleshoot and test their tracking pixels and tags. The same extensions may not exist for other browsers such as Firefox.</p>
+                    
+                    <p>For the following demonstration, we will be using Google Chrome and adding these extensions:</p>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                        <thead>
+                            <tr style="background: #000000; color: #ffffff;">
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Extension Name</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Link</th>
+                                <th style="padding: 1rem; text-align: center; border: 2px solid #000000;">Chrome Web Store Page</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Meta Pixel Helper</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;"><a href="https://chromewebstore.google.com/detail/meta-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc?hl=en" target="_blank">Meta Pixel Helper Chrome Extension</a></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/meta-pixel-helper-extension-store.png" alt="Meta Pixel Helper Extension Store Page" style="max-width: 300px; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;"></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">TikTok Pixel Helper</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;"><a href="https://chromewebstore.google.com/detail/tiktok-pixel-helper/aelgobmabdmlfmiblddjfnjodalhidnn?hl=en" target="_blank">TikTok Pixel Helper Chrome Extension</a></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/tiktok-pixel-helper-extension-store.png" alt="TikTok Pixel Helper Extension Store Page" style="max-width: 300px; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;"></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Tag Assistant</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;"><a href="https://chromewebstore.google.com/detail/tag-assistant/kejbdjndbnbjgmefkgdddjlbokphdefk?hl=en" target="_blank">Google Tag Assistant Chrome Extension</a></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/tag-assistant-extension-store.png" alt="Google Tag Assistant Extension Store Page" style="max-width: 300px; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p>From large companies like Nike and Walmart to small independent artists, e-commerce sites often use a combination of these pixel trackers to understand customer behavior, track ad campaign performance, and much more. In this section, we'll take a look at ASICS, a Japanese sportswear company with both a strong physical retail and digital presence.</p>
+                    
+                    <h2>Disable Blockers</h2>
+                    <p>For this exploration to work, ad blockers that may be blocking pixel trackers from Meta, TikTok, and Google must be disabled. If you are uncomfortable disabling ad blockers for the ASICS site, you can still follow along the process with the images and/or video.</p>
+                    
+                    <p><em>We will learn more about pixel tracking blockers in Module 4: Privacy and Regulation.</em></p>
+                    
+                    <h2>Explore Site</h2>
+                    <p>Visit the ASICS site and see what the extensions detect (or do not detect, if you kept ad blockers enabled).</p>
+                    
+                    <h3>Video Walkthrough:</h3>
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <video controls style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                            <source src="video/real-world-video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <h3>Image Walkthrough:</h3>
+                    <p>Click on the puzzle piece to the right of the search bar.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/extension_icon.png" alt="Extension Icon in Browser Toolbar" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <p>This opens up a list of installed extensions.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/asics-extensions-list.png" alt="Browser Extensions List" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <h3>Meta Pixel Helper</h3>
+                    <p>We'll start by looking at the Meta Pixel Helper. Click on the meta pixel icon in the list of extensions to open it.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/asics-meta-pixel-helper.png" alt="Meta Pixel Helper on ASICS" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <p>Since we've only opened the page so far, the pixel has just logged a PageView event. However, if you explore around the site, more information will populate under the two Meta Pixels incorporated on the ASICS site.</p>
+                    
+                    <h3>TikTok Pixel Helper</h3>
+                    <p>Now, we'll look for TikTok pixels. Click on the puzzle piece again to return to the list of extensions, then click on the TikTok Pixel Helper to open it. ASICS has incorporated two TikTok pixels into their site.</p>
+                    
+                    <div style="margin: 2rem 0; text-align: center;">
+                        <img src="images/asics-tiktok-pixel-helper.png" alt="TikTok Pixel Helper on ASICS" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;">
+                    </div>
+                    
+                    <h3>Google Tag Assistant</h3>
+                    <p>The Google Tag Assistant is highly interconnected with Google Ads and Google Analytics. After going back to the list of extensions and opening up the tag assistant, it may take a bit longer to load. ASICS incorporated several Google Tags into their site which act as very powerful tracking pixels. The first tag captures plenty of information on the client's device and browser. Together, this information is used in a process known as browser fingerprinting, where the data about the device and browser are used to uniquely identify the client. The last tag tracks interactions with the site including hovering over certain tabs on the navigation bar and viewing certain pages.</p>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                        <thead>
+                            <tr style="background: #000000; color: #ffffff;">
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Tag Description</th>
+                                <th style="padding: 1rem; text-align: center; border: 2px solid #000000;">Screenshot</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">List of Tags</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/asics-google-tag-list.png" alt="Google Tag Assistant List" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;"></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">First Tag in the List</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/asics-google-tag-first.png" alt="Google Tag Assistant First Tag" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;"></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Last Tag in the List</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/asics-google-tag-last.png" alt="Google Tag Assistant Last Tag" style="max-width: 100%; height: auto; border: 2px solid #e0e0e0; border-radius: 8px;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h2>Enable Ad Blockers</h2>
+                    <p>If you disabled ad blockers, re-enable them to see how well they block our pixels of interest.</p>
+                    
+                    <h2>Other Pixels</h2>
+                    <p>To look for other pixel trackers, check out the detector section of the Browser Extension Marketplace in Module 4: Privacy and Regulation. It includes similar helpers for other major tracking pixels.</p>
+                    
+                    <p>You can also check out the table in Module 1: Basics of Pixel Tracking for examples of pixels used for different purposes.</p>
+                    
+                    <div class="section-navigation">
+                        <a href="#google-pixel" class="prev-section-btn" data-page="google-pixel">Previous: Module 2 - Google Ads and Analytics</a>
+                        <a href="#pixel-simulation" class="next-section-btn" data-page="pixel-simulation">Next: Module 3 - Pixel Simulation</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Module 3 Pages -->
-        <section id="page-visualization-dashboard" class="page">
+        <!-- Module 3 Page -->
+        <section id="page-pixel-simulation" class="page">
             <div class="content-wrapper">
-                <h1 class="page-title">Visualization Dashboard</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#ecommerce-demo" class="next-section-btn" data-page="ecommerce-demo">Next: E-commerce Site with Pixel Embedded</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="page-ecommerce-demo" class="page">
-            <div class="content-wrapper">
-                <h1 class="page-title">E-commerce Site with Pixel Embedded</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#legal-framework" class="next-section-btn" data-page="legal-framework">Next: Legal and Regulatory Framework</a>
+                <h1 class="page-title">Pixel Simulation</h1>
+                <div class="content-section">
+                    <h2>Simulated Shopping Website</h2>
+                    <p>This page represents a simple shopping site with an embedded tracking pixel. As you navigate through the site, the pixel automatically records:</p>
+                    
+                    <ul class="feature-list">
+                        <li>Time of visit</li>
+                        <li>IP address</li>
+                        <li>Browser and device information (User Agent)</li>
+                        <li>Referrer URL</li>
+                        <li>Page visited</li>
+                    </ul>
+                    
+                    <p><strong>Visit the simulated site here:</strong> <a href="https://pixel-track-2.42web.io" target="_blank">https://pixel-track-2.42web.io</a></p>
+                    
+                    <p><em>This illustrates how websites can capture user information without explicit interaction.</em></p>
+                    
+                    <h2 style="margin-top: 3rem;">Pixel Tracking Dashboard</h2>
+                    <p>After visiting the shopping site, you can view the dashboard to see the exact data collected by the tracking pixel.</p>
+                    
+                    <p><strong>Open the dashboard here:</strong> <a href="https://pixel-track-1.42web.io" target="_blank">https://pixel-track-1.42web.io</a> <em>(Click "Refresh" to see the most recent data.)</em></p>
+                    
+                    <p>The dashboard displays each recorded request, showing how even a single invisible pixel can reveal meaningful user information.</p>
+                    
+                    <div class="section-navigation">
+                        <a href="#real-world-exploration" class="prev-section-btn" data-page="real-world-exploration">Previous: Module 2 - Real World Exploration</a>
+                        <a href="#legal-framework" class="next-section-btn" data-page="legal-framework">Next: Module 4 - Legal and Regulatory Framework</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -483,20 +805,336 @@
         <!-- Module 4 Pages -->
         <section id="page-legal-framework" class="page">
             <div class="content-wrapper">
-                <h1 class="page-title">Legal and Regulatory Framework</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#detection-blocking" class="next-section-btn" data-page="detection-blocking">Next: How Detection and Blocking Works</a>
+                <h1 class="page-title">Legal & Regulatory Framework</h1>
+                <div class="content-section">
+                    <h2>GDPR (General Data Protection Regulation)</h2>
+                    <p><strong>Jurisdiction:</strong> European Union, effective May 25, 2018</p>
+                    
+                    <h3>Key Requirements</h3>
+                    <ul class="feature-list">
+                        <li>Explicit consent required before tracking</li>
+                        <li>Clear opt-out mechanisms must be provided</li>
+                        <li>Right to access data collected about user</li>
+                        <li>Right to deletion (right to be forgotten)</li>
+                        <li>Data portability in machine-readable format</li>
+                        <li>Breach notification within 72 hours</li>
+                        <li>Data Protection Officer required for large-scale processing</li>
+                    </ul>
+                    
+                    <h3>Penalties</h3>
+                    <p>Fines up to €20 million or 4% of global annual revenue, whichever is higher</p>
+                    
+                    <h2 style="margin-top: 3rem;">CCPA (California Consumer Privacy Act)</h2>
+                    <p><strong>Jurisdiction:</strong> California, USA, effective January 1, 2020</p>
+                    
+                    <h3>Key Requirements</h3>
+                    <ul class="feature-list">
+                        <li>Right to know what data is collected</li>
+                        <li>Right to delete personal information</li>
+                        <li>Right to opt-out of data sales</li>
+                        <li>Non-discrimination for exercising rights</li>
+                        <li>"Do Not Sell My Personal Information" link required</li>
+                    </ul>
+                    
+                    <h3>Penalties</h3>
+                    <p>Civil penalties up to $7,500 per violation; private right of action for data breaches</p>
+                    
+                    <h2 style="margin-top: 3rem;">Other Privacy Regulations</h2>
+                    <ul class="feature-list">
+                        <li><strong>ePrivacy Directive (EU):</strong> Cookie consent requirements</li>
+                        <li><strong>LGPD (Brazil):</strong> Similar to GDPR, effective August 2020</li>
+                        <li><strong>PIPEDA (Canada):</strong> Personal information protection</li>
+                        <li><strong>APPI (Japan):</strong> Act on Protection of Personal Information</li>
+                        <li><strong>Virginia CDPA:</strong> Similar to CCPA, effective January 2023</li>
+                        <li><strong>Colorado Privacy Act:</strong> Effective July 2023</li>
+                    </ul>
+                    
+                    <div class="section-navigation">
+                        <a href="#pixel-simulation" class="prev-section-btn" data-page="pixel-simulation">Previous: Module 3 - Pixel Simulation</a>
+                        <a href="#detection-blocking" class="next-section-btn" data-page="detection-blocking">Next: Module 4 - How detection and blocking works</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="page-detection-blocking" class="page">
             <div class="content-wrapper">
-                <h1 class="page-title">How Detection and Blocking Works</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#browser-extensions" class="next-section-btn" data-page="browser-extensions">Next: Browser Extension Market</a>
+                <h1 class="page-title">How to Detect and Block Pixel Trackers</h1>
+                <div class="content-section">
+                    <p>Understanding how to identify tracking pixels is the first step toward protecting your privacy online. Pixels are designed to be invisible, but they leave digital footprints that you can learn to recognize and block.</p>
+                    
+                    <h2>What to Look For</h2>
+                    <p>Tracking pixels follow predictable patterns that make them identifiable once you know what to look for.</p>
+                    
+                    <h3>Pattern 1: 1x1 Transparent Images</h3>
+                    <p>The original and still most common tracking method uses tiny, invisible images:</p>
+                    
+                    <pre><code>&lt;!-- Classic Meta Pixel format --&gt;
+&lt;img src="https://facebook.com/tr?id=1234567890&ev=PageView" 
+     width="1" height="1" 
+     style="display:none; visibility:hidden;"&gt;
+
+&lt;!-- TikTok Pixel format --&gt;
+&lt;img src="https://ads.tiktok.com/pixel?id=9876543210" 
+     width="1" height="1" 
+     style="display:none;"&gt;
+
+&lt;!-- Google tracking pixel format --&gt;
+&lt;img src="https://www.googleadservices.com/pagead/conversion?id=1234567890" 
+     width="1" height="1"&gt;</code></pre>
+                    
+                    <p><strong>Key indicators:</strong></p>
+                    <ul class="feature-list">
+                        <li>Width and height set to 1 or 0</li>
+                        <li>display:none or visibility:hidden CSS</li>
+                        <li>Hosted on advertising/tracking domains (not the website's own domain)</li>
+                        <li>Contains query parameters with IDs and event data</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 2rem;">Pattern 2: JavaScript Tag Execution</h3>
+                    <p>Modern pixels often execute JavaScript code that fires data to tracking servers:</p>
+                    
+                    <pre><code>// Meta Pixel code pattern
+!function(f,b,e,v,n,t,s){
+  if(f.fbq)return;
+  // ... code that initializes tracking
+  fbq('init', 'PIXEL_ID');
+  fbq('track', 'PageView');
+}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+// TikTok Pixel code pattern
+ttq.load('PIXEL_ID');
+ttq.trackPageView();
+
+// Google Analytics pattern
+gtag('config', 'GA_MEASUREMENT_ID');
+gtag('event', 'page_view');</code></pre>
+                    
+                    <p><strong>Key indicators:</strong></p>
+                    <ul class="feature-list">
+                        <li>Script tags loading from tracking domains</li>
+                        <li>Initialization code with pixel IDs</li>
+                        <li>Event tracking calls like track(), event(), fire()</li>
+                        <li>Asynchronous loading (async attribute)</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 2rem;">Pattern 3: Beacon/SendBeacon Method</h3>
+                    <p>New tracking method that sends data in the background without blocking page load:</p>
+                    
+                    <pre><code>// Navigator.sendBeacon() - fires on page unload
+window.addEventListener('beforeunload', function() {
+  const data = new FormData();
+  data.append('pixel_id', '1234567890');
+  data.append('user_action', 'purchase');
+  navigator.sendBeacon('https://tracking.example.com/pixel', data);
+});</code></pre>
+                    
+                    <p><strong>Key indicators:</strong></p>
+                    <ul class="feature-list">
+                        <li>Uses navigator.sendBeacon() API</li>
+                        <li>Sends data in background without blocking</li>
+                        <li>Often triggered on page exit or user action</li>
+                        <li>Data sent to external domains</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 2rem;">Pattern 4: Query Parameters in URLs</h3>
+                    <p>Tracking can happen through URL parameters that reveal user data:</p>
+                    
+                    <pre><code>https://example.com/page?utm_source=facebook&utm_medium=cpc&utm_campaign=summer_sale&fbclid=IwAR123456</code></pre>
+                    
+                    <p><strong>These parameters track:</strong></p>
+                    <ul class="feature-list">
+                        <li>Source platform</li>
+                        <li>Marketing medium</li>
+                        <li>Campaign name</li>
+                        <li>Facebook click ID (identifies individual users)</li>
+                    </ul>
+                    
+                    <h2 style="margin-top: 3rem;">How to Detect Pixels</h2>
+                    
+                    <h3>Method 1: Browser Developer Tools (Network Tab)</h3>
+                    <p><strong>Step-by-step:</strong></p>
+                    <ol class="feature-list">
+                        <li><strong>Open Developer Tools</strong>
+                            <ul>
+                                <li>Chrome/Edge: Press F12 or Ctrl+Shift+I</li>
+                                <li>Firefox: Press F12 or Ctrl+Shift+I</li>
+                                <li>Safari: Enable in Preferences → Advanced, then Cmd+Option+I</li>
+                            </ul>
+                        </li>
+                        <li><strong>Go to Network Tab</strong>
+                            <ul>
+                                <li>Click the "Network" tab</li>
+                                <li>Reload the page (Ctrl+R or Cmd+R)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Look for Tracking Domains</strong>
+                            <ul>
+                                <li>facebook.com/tr</li>
+                                <li>ads.tiktok.com</li>
+                                <li>google-analytics.com</li>
+                                <li>googleadservices.com</li>
+                                <li>doubleclick.net</li>
+                                <li>analytics.google.com</li>
+                            </ul>
+                        </li>
+                        <li><strong>Examine Requests</strong>
+                            <ul>
+                                <li>Click on suspicious requests</li>
+                                <li>Look at the "Request URL" to see what data is being sent</li>
+                                <li>Check "Response" tab (usually empty or minimal)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <p><strong>Example what you'll see:</strong></p>
+                    <pre><code>Request URL: https://facebook.com/tr?id=1234567890&ev=PageView&cd[user_id]=12345&cd[purchase_amount]=99.99
+Status: 204 (No Content) - typical for pixels
+Method: GET or POST
+Type: image or xhr (XMLHttpRequest)</code></pre>
+                    
+                    <h3 style="margin-top: 2rem;">Method 2: Browser Inspector (Elements/Source Code)</h3>
+                    <p><strong>Step-by-step:</strong></p>
+                    <ol class="feature-list">
+                        <li>Right-click on page → Inspect (or press F12)</li>
+                        <li>Go to Elements/Inspector tab</li>
+                        <li>Use Ctrl+F to search for:
+                            <ul>
+                                <li>fbq - Meta Pixel</li>
+                                <li>ttq - TikTok Pixel</li>
+                                <li>gtag - Google Analytics/Ads</li>
+                                <li>sendBeacon - Beacon method pixels</li>
+                                <li>&lt;img src= - Image pixels</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <h3 style="margin-top: 2rem;">Method 3: Search for Specific Tracking Domains</h3>
+                    <p><strong>Common tracking pixel hosts:</strong></p>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                        <thead>
+                            <tr style="background: #000000; color: #ffffff;">
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Company</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Domain</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Pixel Indicators</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Meta/Facebook</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">facebook.com/tr</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">fbq() function calls</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">TikTok</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">ads.tiktok.com/pixel</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">ttq.load() or ttq.track()</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Google Analytics</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">google-analytics.com</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">gtag() function</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Google Ads</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">googleadservices.com</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Conversion pixel IDs</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">LinkedIn</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">px.ads.linkedin.com</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">litag variable</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Pinterest</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">ct.pinterest.com</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">pintrk() calls</td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Snapchat</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">snap.liveramp.com</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">Conversion tracking</td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600;">Amazon</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">amazon-adsystem.com</td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0;">a9.com requests</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h2 style="margin-top: 3rem;">Blocking Pixels: Network Level</h2>
+                    
+                    <h3>Method 1: Ad Blockers</h3>
+                    <p><strong>Best for:</strong> Non-technical users, comprehensive blocking</p>
+                    
+                    <p><strong>Popular ad blockers that block pixels:</strong></p>
+                    <ul class="feature-list">
+                        <li><strong>uBlock Origin (Free)</strong>
+                            <ul>
+                                <li>Most effective, highly customizable</li>
+                                <li>Download: <a href="https://ublockorigin.com" target="_blank">https://ublockorigin.com</a></li>
+                                <li>Blocks ~99% of pixels by default</li>
+                            </ul>
+                        </li>
+                        <li><strong>Adblock Plus (Free)</strong>
+                            <ul>
+                                <li>User-friendly, pre-configured blocklists</li>
+                                <li>Download: <a href="https://adblockplus.org" target="_blank">https://adblockplus.org</a></li>
+                                <li>Medium effectiveness</li>
+                            </ul>
+                        </li>
+                        <li><strong>Privacy Badger (Free)</strong>
+                            <ul>
+                                <li>From EFF (Electronic Frontier Foundation)</li>
+                                <li>Learns which trackers are invasive</li>
+                                <li>Download: <a href="https://privacybadger.org" target="_blank">https://privacybadger.org</a></li>
+                                <li>Better privacy protection than ad blocking</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ghostery (Free/Premium)</strong>
+                            <ul>
+                                <li>Specialized in blocking trackers</li>
+                                <li>Shows what's tracking you</li>
+                                <li>Download: <a href="https://www.ghostery.com" target="_blank">https://www.ghostery.com</a></li>
+                            </ul>
+                        </li>
+                        <li><strong>Brave Browser (Free)</strong>
+                            <ul>
+                                <li>Built-in pixel/tracker blocking</li>
+                                <li>No extension needed</li>
+                                <li>Download: <a href="https://brave.com" target="_blank">https://brave.com</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 2rem;">Method 2: Browser Settings</h3>
+                    <p><strong>Google Chrome:</strong></p>
+                    <ul class="feature-list">
+                        <li>Settings → Privacy and Security → Third-party cookies</li>
+                        <li>Select "Block third-party cookies"</li>
+                        <li>This prevents Meta, TikTok, Google pixels from tracking across sites</li>
+                    </ul>
+                    
+                    <p><strong>Firefox:</strong></p>
+                    <ul class="feature-list">
+                        <li>Preferences → Privacy & Security</li>
+                        <li>Enhanced Tracking Protection → "Strict"</li>
+                        <li>Block all known trackers</li>
+                    </ul>
+                    
+                    <p><strong>Safari:</strong></p>
+                    <ul class="feature-list">
+                        <li>Preferences → Privacy</li>
+                        <li>Check "Prevent cross-site tracking"</li>
+                        <li>Intelligent Tracking Prevention enabled by default</li>
+                    </ul>
+                    
+                    <div class="section-navigation">
+                        <a href="#legal-framework" class="prev-section-btn" data-page="legal-framework">Previous: Module 4 - Legal and Regulatory Framework</a>
+                        <a href="#browser-extensions" class="next-section-btn" data-page="browser-extensions">Next: Module 4 - Browser Extension Market</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -504,9 +1142,103 @@
         <section id="page-browser-extensions" class="page">
             <div class="content-wrapper">
                 <h1 class="page-title">Browser Extension Market</h1>
-                <div class="placeholder-content">
-                    <p>Content will be added here.</p>
-                    <a href="#game" class="next-section-btn" data-page="game">Next: Pixel Detective Game</a>
+                <div class="content-section">
+                    <p>This is by no means a comprehensive list of resources, but it is a good place to start. We recommend starting with uBlock Origin and Privacy Badger at the minimum.</p>
+                    
+                    <h2>Blockers</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                        <thead>
+                            <tr style="background: #000000; color: #ffffff;">
+                                <th style="padding: 1rem; text-align: center; border: 2px solid #000000; width: 200px;">Extension</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Name & Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/uBlock_Origin.png" alt="uBlock Origin" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://ublockorigin.com/" target="_blank">uBlock Origin</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Privacy_Badger.png" alt="Privacy Badger" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://privacybadger.org/" target="_blank">Privacy Badger</a></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Ghostery.png" alt="Ghostery" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://www.ghostery.com/" target="_blank">Ghostery</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Disconnect.png" alt="Disconnect" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://disconnect.me/" target="_blank">Disconnect</a></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Decentraleyes.png" alt="Decentraleyes" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://decentraleyes.org/" target="_blank">Decentraleyes</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/NoScript.png" alt="NoScript" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://noscript.net/" target="_blank">NoScript</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h2 style="margin-top: 3rem;">Detectors</h2>
+                    <p>The same tools that help developers troubleshoot and debug their pixels can be used to detect them. We've provided links to the Chrome versions, but there may also be versions available for other browsers.</p>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                        <thead>
+                            <tr style="background: #000000; color: #ffffff;">
+                                <th style="padding: 1rem; text-align: center; border: 2px solid #000000; width: 200px;">Extension</th>
+                                <th style="padding: 1rem; text-align: left; border: 2px solid #000000;">Name & Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/meta-pixel-helper-extension-store.png" alt="Meta Pixel Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/meta-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc?hl=en" target="_blank">Meta Pixel Helper</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/tiktok-pixel-helper-extension-store.png" alt="TikTok Pixel Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/tiktok-pixel-helper/aelgobmabdmlfmiblddjfnjodalhidnn?hl=en" target="_blank">TikTok Pixel Helper</a></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/tag-assistant-extension-store.png" alt="Google Tag Assistant" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/tag-assistant/kejbdjndbnbjgmefkgdddjlbokphdefk?hl=en" target="_blank">Google Tag Assistant</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Pinterest_Tag_Helper.png" alt="Pinterest Tag Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/pinterest-tag-helper/gmlcbajhgoaaegmlbaclmmmhpmfdajmp?hl=en" target="_blank">Pinterest Tag Helper</a></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/X_Pixel_Helper.png" alt="X Pixel Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/x-pixel-helper/jepminnlebllinfmkhfbkpckogoiefpd?hl=en" target="_blank">X Pixel Helper</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/LinkedIn_Insight_Tag.png" alt="LinkedIn Insight Tag" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/insight-tag-checker-for-l/feeednoflloccfhgoiiohjammanphoef?hl=en" target="_blank">LinkedIn Insight Tag</a></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Reddit_Pixel_Helper.png" alt="Reddit Pixel Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/reddit-pixel-helper/ebgpcjlgganlidigifggjjiglghjnjcj?hl=en-US" target="_blank">Reddit Pixel Helper</a></td>
+                            </tr>
+                            <tr style="background: #f8f8f8; border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/Amazon_Ad_Tag_Helper.png" alt="Amazon Ad Tag Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/amazon-ad-tag-helper/lfljgabnenicfhcbbfflijkeoebncchk?hl=en" target="_blank">Amazon Ad Tag Helper</a></td>
+                            </tr>
+                            <tr style="border: 2px solid #e0e0e0;">
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; text-align: center;"><img src="images/UET_Tag_Helper.png" alt="UET Tag Helper" style="max-width: 150px; height: auto;"></td>
+                                <td style="padding: 1rem; border: 2px solid #e0e0e0; font-weight: 600; font-size: 1.1rem;"><a href="https://chromewebstore.google.com/detail/uet-tag-helper-by-microso/naijndjklgmffmpembnkfbcjbognokbf?hl=en" target="_blank">UET Tag Helper</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h2 style="margin-top: 3rem;">Columbia University Resources for Students and Employees</h2>
+                    <p><strong>Free Premium Malwarebytes License + Browser Extension</strong></p>
+                    <p><a href="https://www.cuit.columbia.edu/malwarebytes" target="_blank">https://www.cuit.columbia.edu/malwarebytes</a></p>
+                    
+                    <div class="section-navigation">
+                        <a href="#detection-blocking" class="prev-section-btn" data-page="detection-blocking">Previous: Module 4 - How detection and blocking works</a>
+                        <a href="#game" class="next-section-btn" data-page="game">Next: Module 5 - Game</a>
+                    </div>
                 </div>
             </div>
         </section>

@@ -337,10 +337,20 @@ body:has(.iframe-page.active) footer {
     display: none;
 }
 
-/* Next Button */
+/* Section Navigation */
+.section-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+/* Previous and Next Buttons */
+.prev-section-btn,
 .next-section-btn {
     display: inline-block;
-    margin-top: 3rem;
     padding: 1rem 2rem;
     background: #000000;
     color: #ffffff;
@@ -350,16 +360,29 @@ body:has(.iframe-page.active) footer {
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    border-radius: 4px;
 }
 
+.prev-section-btn:hover,
 .next-section-btn:hover {
     background: #333333;
     border-color: #333333;
+    transform: translateX(0);
+}
+
+.prev-section-btn::before {
+    content: "← ";
+    margin-right: 0.5rem;
 }
 
 .next-section-btn::after {
     content: " →";
     margin-left: 0.5rem;
+}
+
+/* When only next button exists */
+.section-navigation:has(.next-section-btn:only-child) {
+    justify-content: flex-end;
 }
 
 /* Footer */

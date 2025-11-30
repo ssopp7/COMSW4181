@@ -18,15 +18,6 @@ The main site and the Module 5 game are both deployed on **Netlify**.
 
 ---
 
-### **Module 5: Pixel Detective Game**
-Located in:
-
-`pixel-tracker-game/`
-
-This directory contains the standalone mini-game where users identify and block “tracking pixels” in a simulated environment.
-
----
-
 ### **Module 3: Pixel Tracking Simulation**
 This module uses **two separate deployed websites** to simulate real-world pixel tracking behavior.
 
@@ -42,10 +33,19 @@ URLs for both sites are embedded directly in **Module 3** of the main app for se
 
 ---
 
+### **Module 5: Pixel Detective Game**
+Located in:
+
+`pixel-tracker-game/`
+
+This directory contains the standalone mini-game where users identify and block “tracking pixels” in a simulated environment.
+
+---
+
 ## How to Use
 
 ### **Option 1 — Use the deployed version (recommended)**
-Simply open the Netlify deployment URL included in the Module 1 introduction.
+Simply open the Netlify deployment URL included in Coursework submission.
 
 ### **Option 2 — Run locally**
 If you downloaded the repository:
